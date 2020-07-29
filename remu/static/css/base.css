@@ -1,0 +1,11 @@
+#topHeader {
+  height: 50px;
+  background-color: #ffb792;
+  color: white;
+  font-size: 15px;
+  font-weight: lighter;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  line-height: 50px;
+}

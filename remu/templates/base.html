@@ -1,21 +1,23 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
-    {% block head %}
-    {% endblock %}
-</head>
+    {% block head %} {% endblock %}
+  </head>
 
-<body>
-    {% block contents %}
-    {% endblock %}
-
-</body>
-
+  <body>
+    <div id="topHeader">
+      <span>
+        만나서 반가워요! 리뮤에서 당신의 MV 리뷰를 공유해주세요 :)
+      </span>
+    </div>
+    <div id="container">
+      {% block contents %} {% endblock %}
+    </div>
+  </body>
 </html>
