@@ -28,7 +28,8 @@ class Review(models.Model):
     # 내용
     text = models.TextField()
     # 뮤직비디오
-    video = models.ForeignKey(MusicVideo, on_delete=models.CASCADE)
+    video = models.ForeignKey(
+        MusicVideo, on_delete=models.CASCADE, related_name="reviews")
     # 모델 생성 날짜
     register_date = models.DateTimeField(default=timezone.now)
 
