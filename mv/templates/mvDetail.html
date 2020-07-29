@@ -1,9 +1,60 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block head %}
+{% extends 'base.html' %} {% load static %} {% block head %}
 <link rel="stylesheet" href="{% static 'css/mvDetail.css' %}" />
-{% endblock %}
-
-{% block contents %}
-mvDetail
+{% endblock %} {% block contents %}
+<div id="mvDetailContainer">
+  <div class="videoDetail">
+    <div id="videoContainer">
+      <iframe
+        id="video"
+        src="https://www.youtube.com/embed/{{video.video_link}}"
+        frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <h1 class="videoInformation">{{video.title}}</h1>
+    <div class="videoInformation directorDetail">
+      <span>{{video.director.name}} 감독</span>
+      <button>감독 프로필 확인하기</button>
+    </div>
+    <div class="videoInformation">아티스트 : {{video.artist}}</div>
+    <div class="videoInformation">업로드 날짜 : {{video.upload_date}}</div>
+    <div class="videoInformation score">(4.8/5.0)</div>
+  </div>
+  <div class="commentWriter">
+    <div></div>
+    <textarea rows="8" placeholder="뮤비에 대한 리뷰를 작성해주세요."></textarea>
+    <div class="buttonContainer">
+      <button>기록하기</button>
+    </div>
+  </div>
+  <div class="commentContainer">
+    {% for review in video.reviews.all %}
+    <div class="review">
+      <div class="reviewAuthor">
+        <div class="profileBox">
+          <img src="{% static 'img/pruple.png' %}" />
+        </div>
+        <div>{{review.author.profile.name}}</div>
+        <div></div>
+      </div>
+      <div>
+        {{review.text}}
+      </div>
+    </div>
+    <div class="review">
+      <div class="reviewAuthor">
+        <div class="profileBox">
+          <img src="{% static 'img/pruple.png' %}" />
+        </div>
+        <div>{{review.author.profile.name}}</div>
+        <div></div>
+      </div>
+      <div>
+        {{review.text}}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}

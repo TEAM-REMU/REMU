@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import MusicVideo
 
 # Create your views here.
@@ -12,4 +12,9 @@ def mvList(request):
 
 
 def mvDetail(request, id):
-    return render(request, 'mvDetail.html')
+
+    try:
+        video = MusicVideo.objects.get(pk=id)
+        return render(request, 'mvDetail.html', {'video': video})
+    except MusicVideo.DoesNotExist:
+        return redirect('/404')
