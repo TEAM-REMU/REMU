@@ -10,6 +10,8 @@ class MusicVideo(models.Model):
     title = models.CharField(max_length=50)
     # 감독
     director = models.ForeignKey(Director, on_delete=models.CASCADE)
+    # 비디오 주소
+    video_link = models.CharField(max_length=50)
     # 아티스트
     artist = models.CharField(max_length=100)
     # 뮤비 업로드 날짜
