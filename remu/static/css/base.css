@@ -1,3 +1,7 @@
+body {
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
 #topHeader {
   height: 50px;
   background-color: #ffb792;
