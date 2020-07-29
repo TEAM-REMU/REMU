@@ -26,3 +26,55 @@ body {
   padding-top: 50px;
   min-height: 100vh;
 }
+
+footer {
+  height: 783px;
+  background-color: #ffeac9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer img {
+  height: 65px;
+  width: auto;
+  margin-bottom: 80px;
+  margin-top: auto;
+}
+
+footer .footerContainer {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+}
+
+footer .footerContainer .footerContents {
+  flex: 1;
+  margin: 0 50px;
+  margin-top: 210px;
+}
+
+footer .footerContainer .footerContents div {
+  color: #f3793a;
+  font-size: 30px;
+  font-weight: bold;
+  padding-bottom: 50px;
+  margin-bottom: 40px;
+  border-bottom: 2px solid #f3793a;
+}
+
+footer .footerContents button {
+  border: 3px solid #f3793a;
+  color: #f3793a;
+  background-color: transparent;
+  margin-top: 25px;
+  padding: 15px 25px;
+  font-size: 18px;
+  outline: none;
+}
+
+footer .footerContents .footerTextList li {
+  margin-bottom: 17px;
+  font-weight: 100;
+  letter-spacing: 0.5px;
+}
