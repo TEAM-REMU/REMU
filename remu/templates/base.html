@@ -20,6 +20,20 @@
     <div id="container">
       <header>
         <img src="{% static 'img/REMU_LOGO.png' %}" />
+        <div>
+          {% if request.get_full_path != "/" %}
+          <div class="searchBar">
+            <input placeholder="MV /  감독 / 아티스트를 검색하세요." />
+            <img src="{% static 'img/search_icon.png' %}" />
+          </div>
+          {% endif %}
+          <ul>
+            <li>로그인</li>
+            <li class="orange">회원가입</li>
+            <li class="orange">마이페이지</li>
+            <li class="orange">감독별 검색</li>
+          </ul>
+        </div>
       </header>
       {% block contents %} {% endblock %}
     </div>
