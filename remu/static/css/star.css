@@ -1,19 +1,46 @@
-.star {
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+/****** Style Star Rating Widget *****/
+
+.rating {
+  border: none;
+  float: left;
+}
+
+.rating>input {
+  display: none;
+}
+
+.rating.big>label:before {
+  font-size: 2.25em;
+  margin: 5px;
+}
+
+.rating.middle>label:before {
+  font-size: 1.25em;
+  margin: 5px;
+}
+
+.rating>label:before {
+  margin: 2.5px;
+  font-size: 1em;
+  font-family: FontAwesome;
   display: inline-block;
-  width: 30px;
-  height: 60px;
-  cursor: pointer;
+  content: "\f005";
 }
-.star_left {
-  background: url(https://www.iconsdb.com/icons/download/gray/star-128.png) no-repeat 0 0;
-  background-size: 40px;
-  margin-right: -7px;
+
+.rating>.half:before {
+  content: "\f089";
+  position: absolute;
 }
-.star_right {
-  background: url(https://www.iconsdb.com/icons/download/gray/star-128.png) no-repeat -20px 0;
-  background-size: 40px;
-  margin-left: -7px;
+
+.rating>label {
+  color: #7A7A7A;
+  float: right;
 }
-.star.on {
-  background-image: url(https://www.iconsdb.com/icons/preview/orange/star-xxl.png);
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating>input:checked~label {
+  color: #FE8369;
 }
