@@ -94,6 +94,10 @@ fieldset.rating.left {
   resize: none;
 }
 
+.commentWriter textarea:disabled {
+  background-color: white;
+}
+
 .commentWriter .buttonContainer {
   margin-top: 20px;
   display: flex;
@@ -107,6 +111,10 @@ fieldset.rating.left {
   color: white;
   font-size: 13px;
   padding: 7.5px 22.5px;
+}
+
+.commentWriter button:disabled {
+  background-color: lightslategray;
 }
 
 .commentContainer {

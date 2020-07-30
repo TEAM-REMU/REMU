@@ -39,10 +39,17 @@
       <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf"
         title="Sucks big time - 0.5 stars"></label>
     </fieldset>
+    {% if not request.user.is_authenticated %}
     <textarea rows="8" placeholder="뮤비에 대한 리뷰를 작성해주세요."></textarea>
     <div class="buttonContainer">
       <button>기록하기</button>
     </div>
+    {% else %}
+    <textarea rows="8" placeholder="로그인을 해야 리뷰를 작성할 수 있습니다" disabled></textarea>
+    <div class="buttonContainer">
+      <button disabled>기록하기</button>
+    </div>
+    {% endif %}
   </div>
   <div class="commentContainer">
     {% for review in video.reviews.all %}
