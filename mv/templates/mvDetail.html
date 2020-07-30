@@ -10,7 +10,7 @@
     <h1 class="videoInformation">{{video.title}}</h1>
     <div class="videoInformation directorDetail">
       <span>{{video.director.name}} 감독</span>
-      <button>감독 프로필 확인하기</button>
+      <a href="{% url 'directorProfile' video.director.id %}"><button>감독 프로필 확인하기</button></a>
     </div>
     <div class="videoInformation">아티스트 : {{video.artist}}</div>
     <div class="videoInformation">업로드 날짜 : {{video.upload_date}}</div>

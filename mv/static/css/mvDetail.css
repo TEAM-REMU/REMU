@@ -52,6 +52,7 @@
   color: white;
   font-size: 13px;
   padding: 7.5px 12.5px;
+  cursor: pointer;
 }
 
 .videoInformation {
