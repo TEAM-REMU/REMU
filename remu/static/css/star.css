@@ -16,6 +16,11 @@
   margin: 5px;
 }
 
+.rating.middle>label:before {
+  font-size: 1.25em;
+  margin: 5px;
+}
+
 .rating>label:before {
   margin: 2.5px;
   font-size: 1em;

@@ -4,7 +4,7 @@
 <div id="mvDetailContainer">
   <div class="videoDetail">
     <div id="videoContainer">
-      <iframe id="video" src="https://www.youtube.com/embed/{{video.video_link}}" frameborder="0"
+      <iframe id="video" src="//www.youtube.com/embed/{{video.video_link}}" frameborder="0"
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <h1 class="videoInformation">{{video.title}}</h1>
@@ -14,7 +14,33 @@
     </div>
     <div class="videoInformation">아티스트 : {{video.artist}}</div>
     <div class="videoInformation">업로드 날짜 : {{video.upload_date}}</div>
-    <div class="videoInformation score">(4.8/5.0)</div>
+    <div class="videoInformation score">
+      <fieldset class="rating left">
+        <input type="radio" id="star5{{review.id}}" name="rating{{review.id}}" value="5" /><label class="full"
+          for="star5{{review.id}}" title="Awesome - 5 stars"></label>
+        <input type="radio" id="star4half{{review.id}}" name="rating{{review.id}}" value="4 and a half" /><label
+          class="half" for="star4half{{review.id}}" title="Pretty good - 4.5 stars"></label>
+        <input type="radio" id="star4{{review.id}}" name="rating{{review.id}}" value="4" /><label class="full"
+          for="star4{{review.id}}" title="Pretty good - 4 stars"></label>
+        <input type="radio" id="star3half{{review.id}}" name="rating{{review.id}}" value="3 and a half" /><label
+          class="half" for="star3half{{review.id}}" title="Meh - 3.5 stars"></label>
+        <input type="radio" id="star3{{review.id}}" name="rating{{review.id}}" value="3" /><label class="full"
+          for="star3{{review.id}}" title="Meh - 3 stars"></label>
+        <input type="radio" id="star2half{{review.id}}" name="rating{{review.id}}" value="2 and a half" /><label
+          class="half" for="star2half{{review.id}}" title="Kinda bad - 2.5 stars"></label>
+        <input type="radio" id="star2{{review.id}}" name="rating{{review.id}}" value="2" /><label class="full"
+          for="star2{{review.id}}" title="Kinda bad - 2 stars"></label>
+        <input type="radio" id="star1half{{review.id}}" name="rating{{review.id}}" value="1 and a half" /><label
+          class="half" for="star1half{{review.id}}" title="Meh - 1.5 stars"></label>
+        <input type="radio" id="star1{{review.id}}" name="rating{{review.id}}" value="1" /><label class="full"
+          for="star1{{review.id}}" title="Sucks big time - 1 star"></label>
+        <input type="radio" id="starhalf{{review.id}}" name="rating{{review.id}}" value="half" /><label class="half"
+          for="starhalf{{review.id}}" title="Sucks big time - 0.5 stars"></label>
+      </fieldset>
+      <div>
+        (4.8/5.0)
+      </div>
+    </div>
   </div>
   <div class="commentWriter">
     <fieldset class="rating big">

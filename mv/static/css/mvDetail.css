@@ -7,8 +7,10 @@
 }
 
 .videoDetail {
-  padding: 0 5%;
-  margin-bottom: 70px;
+  padding: 5%;
+  margin-bottom: 20px;
+  background-color: white;
+  border-radius: 10px;
 }
 
 #videoContainer {
@@ -64,6 +66,16 @@
 
 .score {
   color: #fe8369;
+}
+
+.videoInformation.score {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.videoInformation.score div {
+  margin-left: 5px;
 }
 
 .commentWriter {
