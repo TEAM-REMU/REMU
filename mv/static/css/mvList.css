@@ -6,10 +6,10 @@
   grid-column-gap: 3%;
   grid-row-gap: 7.5%;
 }
+
 .mv {
   background-color: white;
   border-radius: 10px;
-  cursor: pointer;
   -webkit-box-shadow: 10px 10px 26px 1px rgba(0, 0, 0, 0.17);
   -moz-box-shadow: 10px 10px 26px 1px rgba(0, 0, 0, 0.17);
   box-shadow: 10px 10px 26px 1px rgba(0, 0, 0, 0.17);
@@ -47,6 +47,10 @@
   color: gray;
 }
 
+.mv .mvDetail div a {
+  margin-left: auto;
+}
+
 .mv .mvDetail div button {
   border: none;
   outline: none;
@@ -54,5 +58,5 @@
   color: white;
   font-size: 13px;
   padding: 7.5px 17.5px;
-  margin-left: auto;
+  cursor: pointer;
 }

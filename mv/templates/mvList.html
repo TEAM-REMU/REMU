@@ -3,17 +3,17 @@
 {% endblock %} {% block contents %}
 <div class="mvContainer">
   {% for video in videos %}
-  <a class="mv" href="{% url 'mvDetail' video.id %}">
+  <div class="mv">
     <img src="https://img.youtube.com/vi/{{video.video_link}}/maxresdefault.jpg" />
     <div class="mvDetail">
       <span class="mvTitle">{{video.director.name}} 감독 - {{video.artist}} '{{video.title}}'</span>
       <div>
         <img src="{% static 'img/heart.png' %}" />
         <span>리뷰 {{video.reviews.all.count}}</span>
-        <button>더보기</button>
+        <a href="{% url 'mvDetail' video.id %}"><button>더보기</button></a>
       </div>
     </div>
-  </a>
+  </div>
   {% endfor %}
 </div>
 {% endblock %}
