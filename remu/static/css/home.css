@@ -1,0 +1,11 @@
+.container1 {
+    height: 50px;
+    background-color: #FFCD7D;
+    color: white;
+    font-size: 40px;
+    font-weight: lighter;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    line-height: 50px;
+}

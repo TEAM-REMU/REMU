@@ -5,5 +5,110 @@
 {% endblock %}
 
 {% block contents %}
-Welcome Home
+<style>
+    .container1 {
+        height: 100px;
+        background-color: #FFCD7D;
+        color: white;
+        font-size: 40px;
+        display: flex;
+        line-height: 50px;
+        padding: 100px;
+        border-radius: 1em;
+        margin-bottom: 50px;
+        -webkit-box-shadow: 10px 10px 18px -12px rgba(0,0,0,0.26);
+        -moz-box-shadow: 10px 10px 18px -12px rgba(0,0,0,0.26);
+        box-shadow: 10px 10px 18px -12px rgba(0,0,0,0.26);
+        }
+    .container2 {
+        background-color: white;
+        border-radius: 1em;
+        -webkit-box-shadow: 10px 10px 18px -12px rgba(0,0,0,0.26);
+        -moz-box-shadow: 10px 10px 18px -12px rgba(0,0,0,0.26);
+        box-shadow: 10px 10px 18px -12px rgba(0,0,0,0.26);
+        margin-bottom: 50px;
+        height: 450px;
+        padding: 50px;
+    }
+    .container3 {
+        background-color: white;
+        border-radius: 1em;
+        -webkit-box-shadow: 10px 10px 18px -12px rgba(0,0,0,0.26);
+        -moz-box-shadow: 10px 10px 18px -12px rgba(0,0,0,0.26);
+        box-shadow: 10px 10px 18px -12px rgba(0,0,0,0.26);
+        margin-bottom: 50px;
+        padding: 50px;
+    }
+    .block3 {
+        background-color: #FE8369;
+        color: white;
+        padding: 30px;
+        border-radius: 1em;
+        -webkit-box-shadow: 10px 10px 18px -12px rgba(0,0,0,0.26);
+        -moz-box-shadow: 10px 10px 18px -12px rgba(0,0,0,0.26);
+        box-shadow: 10px 10px 18px -12px rgba(0,0,0,0.26);
+    }
+    
+</style>
+
+<div class="container1">
+    <div class="introtext">
+        <div>내 최애의 뮤직비디오</div>
+        <div>누가 만들었을까?</div>
+    </div>
+    <div class="search">
+        <input type="text" placeholder="MV / 감독 / 아티스트를 검색하세요.">
+        <button>검색</button>
+    </div>
+</div>
+
+
+<div class="container2">
+    <div class="block1">
+        <span>대만 첫사랑 영화를 닮은 섬세한 감성, </span>
+        <span>이래경 감독</span>
+        <span>의 작품을 소개합니다.</span>
+    </div>
+
+    <div class="block2">
+        <span>에피톤프로젝트 - 첫사랑</span>
+        <span>태연 - 사계</span>
+        <span>아이유 - 밤편지</span>
+        <span>1415 - 흰 눈이 오면</span>
+        <span>자우림 - 있지</span>
+        <span>아이유 - 팔레트</span>
+    </div>
+
+    <div class="block3">
+        <div>이 감독님은 말이죠</div>
+        <div class="tag">
+            <div>#첫사랑</div>
+            <div>#빛바랜_필름</div>
+            <div>#아기자기</div>
+            <div>#아련한_추억</div>
+            <div>#섬세한_감성</div>
+        </div>
+        <button>감독 프로필 보러가기 >>></button>
+    </div>
+</div>
+
+<div class="container3">
+    <div>오늘 이 뮤비 어때요</div>
+    <span><iframe width="560" height="315" src="https://www.youtube.com/embed/O136JYv3weQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></span>
+    <span class="text box">
+        <div class="line1">
+            <span>치즈 '좋아해'</span>
+            <span>★★★★★</span>
+        </div>
+        <div class="line2">
+            학창시절 첫사랑 기억이 막 조작된다 난 분명 남고인데…
+        </div>
+        <div class="line3">
+            - 흑석동 멋쟁이사자
+        </div>
+        <div class="line4">
+            <button>다른 리뷰 보러가기</button>
+        </div>
+    </span>
+</div>
 {% endblock %}
