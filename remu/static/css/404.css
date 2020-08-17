@@ -1,4 +1,6 @@
-body {
-    background-color: red;
+.homebutton {
+    border:none;
+    background: #FFCD7D;
+    color: white;
 }
 
