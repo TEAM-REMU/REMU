@@ -5,5 +5,16 @@
 {% endblock %}
 
 {% block contents %}
-signIn
+<div class = "signInContainer">
+    <div class = "logo">
+        <img src = "{% static 'img/logo.png' %}">
+    </div>
+    <div class = "signInDetail">
+        <input type="text" placeholder="  아이디" name="uname" required>
+        <input type="password" placeholder="  비밀번호" name="psw" required>
+        <button type="signIn">로그인</button>
+        <button type="submit">회원가입</button>
+    </div>
+</div>
+
 {% endblock %}

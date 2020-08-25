@@ -5,5 +5,16 @@
 {% endblock %}
 
 {% block contents %}
-signUp
+<div class = "signUpContainer">
+    <div class = "logo">
+        <img src = "{% static 'img/logo.png' %}">
+    </div>
+    <div class = "signUpDetail">
+        <input type="text" placeholder="  아이디" name="uname" required>
+        <input type="password" placeholder="  비밀번호" name="psw" required>
+        <input type="email" placeholder="  이메일" name="email" required>
+        <button type="submit">회원가입</button>
+    </div>
+</div>
+
 {% endblock %}
