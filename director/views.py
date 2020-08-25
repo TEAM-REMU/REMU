@@ -4,5 +4,5 @@ from django.shortcuts import render
 def directorList(request):
     return render(request, 'directorList.html')
 
-def directorProfile(request, id):
+def directorProfile(request):
     return render(request, 'directorProfile.html')
