@@ -2,6 +2,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,windows,visualstudiocode,python,venv,django,pycharm
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,visualstudiocode,python,venv,django,pycharm
 
+remu/settings.py
+
 ### Django ###
 *.log
 *.pot
