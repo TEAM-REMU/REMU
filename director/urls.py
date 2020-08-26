@@ -5,5 +5,5 @@ import director.views
 
 urlpatterns = [
     path('directorList', director.views.directorList, name="directorList"),
-    path('directorProfile/<int:id>', director.views.directorProfile, name="directorProfile"),
+    path('directorProfile', director.views.directorProfile, name="directorProfile"),
 ]
