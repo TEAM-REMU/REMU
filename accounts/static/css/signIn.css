@@ -1,0 +1,76 @@
+.logo{
+    width: 107px;
+    height: 99px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+.logo img{
+    width: 100%;
+    height: 100%;
+}
+
+.signInDetail{
+    padding: 4%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 15px;
+    height: 300px;
+    width: 750px;
+    box-shadow: 5px 5px 20px -10px rgba(0, 0, 0, 0.363);
+    padding-top: 70px;
+    padding-bottom: 20px;
+
+}
+
+input[type=text], input[type=password]{
+    border: none;
+    outline: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    height: 35px;
+    width: 330px;
+    color: black;
+    cursor: text;
+    background-color: #f9f6f4;
+}
+
+
+button[type=signIn]{
+    border: none;
+    outline: none;
+    background-color:#ffcd7d;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: 200;
+    height: 40px;
+    width: 330px;
+    cursor: pointer;
+}
+
+button[type=submit]{
+    border: none;
+    outline: none;
+    background-color:#fe8369;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    font-size: 18px;
+    font-weight: 200;
+    height: 40px;
+    width: 330px;
+    cursor: pointer;
+}
