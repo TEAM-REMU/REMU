@@ -10,67 +10,27 @@
     <h1 class="videoInformation">{{video.title}}</h1>
     <div class="videoInformation directorDetail">
       <span>{{video.director.name}} 감독</span>
-      <a href="{% url 'directorProfile' video.director.id %}"><button>감독 프로필 확인하기</button></a>
+      <a><button>감독 프로필 확인하기</button></a>
     </div>
     <div class="videoInformation">아티스트 : {{video.artist}}</div>
-    <div class="videoInformation">업로드 날짜 : {{video.upload_date}}</div>
+    <div class="videoInformation">업로드 날짜 : {{video.upload_date|date:"Y년 m월 d일"}}</div>
     <div class="videoInformation score">
-      <fieldset class="rating left">
-        <input type="radio" id="star5{{review.id}}" name="rating{{review.id}}" value="5" /><label class="full"
-          for="star5{{review.id}}" title="Awesome - 5 stars"></label>
-        <input type="radio" id="star4half{{review.id}}" name="rating{{review.id}}" value="4 and a half" /><label
-          class="half" for="star4half{{review.id}}" title="Pretty good - 4.5 stars"></label>
-        <input type="radio" id="star4{{review.id}}" name="rating{{review.id}}" value="4" /><label class="full"
-          for="star4{{review.id}}" title="Pretty good - 4 stars"></label>
-        <input type="radio" id="star3half{{review.id}}" name="rating{{review.id}}" value="3 and a half" /><label
-          class="half" for="star3half{{review.id}}" title="Meh - 3.5 stars"></label>
-        <input type="radio" id="star3{{review.id}}" name="rating{{review.id}}" value="3" /><label class="full"
-          for="star3{{review.id}}" title="Meh - 3 stars"></label>
-        <input type="radio" id="star2half{{review.id}}" name="rating{{review.id}}" value="2 and a half" /><label
-          class="half" for="star2half{{review.id}}" title="Kinda bad - 2.5 stars"></label>
-        <input type="radio" id="star2{{review.id}}" name="rating{{review.id}}" value="2" /><label class="full"
-          for="star2{{review.id}}" title="Kinda bad - 2 stars"></label>
-        <input type="radio" id="star1half{{review.id}}" name="rating{{review.id}}" value="1 and a half" /><label
-          class="half" for="star1half{{review.id}}" title="Meh - 1.5 stars"></label>
-        <input type="radio" id="star1{{review.id}}" name="rating{{review.id}}" value="1" /><label class="full"
-          for="star1{{review.id}}" title="Sucks big time - 1 star"></label>
-        <input type="radio" id="starhalf{{review.id}}" name="rating{{review.id}}" value="half" /><label class="half"
-          for="starhalf{{review.id}}" title="Sucks big time - 0.5 stars"></label>
-      </fieldset>
+      <span id="mvStar" class="rating middle" data-stars="5" data-default-rating="3.5" disabled></span>
       <div>
         (4.8/5.0)
       </div>
     </div>
   </div>
   <div class="commentWriter">
-    <fieldset class="rating big">
-      <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5"
-        title="Awesome - 5 stars"></label>
-      <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half"
-        title="Pretty good - 4.5 stars"></label>
-      <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4"
-        title="Pretty good - 4 stars"></label>
-      <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half"
-        title="Meh - 3.5 stars"></label>
-      <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3"
-        title="Meh - 3 stars"></label>
-      <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half"
-        title="Kinda bad - 2.5 stars"></label>
-      <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2"
-        title="Kinda bad - 2 stars"></label>
-      <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half"
-        title="Meh - 1.5 stars"></label>
-      <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1"
-        title="Sucks big time - 1 star"></label>
-      <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf"
-        title="Sucks big time - 0.5 stars"></label>
-    </fieldset>
-    {% if not request.user.is_authenticated %}
+    <!-- 로그인 기능 추가하면 if에 not 추가 -->
+    {% if request.user.is_authenticated %}
+    <span id="myStar" class="rating big" data-stars="5" data-default-rating="3"></span>
     <textarea rows="8" placeholder="뮤비에 대한 리뷰를 작성해주세요."></textarea>
     <div class="buttonContainer">
       <button>기록하기</button>
     </div>
     {% else %}
+    <span id="myStar" class="rating big" data-stars="5" data-default-rating="3" disabled></span>
     <textarea rows="8" placeholder="로그인을 해야 리뷰를 작성할 수 있습니다" disabled></textarea>
     <div class="buttonContainer">
       <button disabled>기록하기</button>
@@ -83,36 +43,31 @@
       <div class="reviewAuthor">
         <div class="profileBox">
           <img src="{% static 'img/pruple.png' %}" />
+          <div class="reviewAuthorName">{{review.author.profile.name}}</div>
         </div>
-        <div class="reviewAuthorName">{{review.author.profile.name}}</div>
-        <fieldset class="rating left">
-          <input type="radio" id="star5{{review.id}}" name="rating{{review.id}}" value="5" /><label class="full"
-            for="star5{{review.id}}" title="Awesome - 5 stars"></label>
-          <input type="radio" id="star4half{{review.id}}" name="rating{{review.id}}" value="4 and a half" /><label
-            class="half" for="star4half{{review.id}}" title="Pretty good - 4.5 stars"></label>
-          <input type="radio" id="star4{{review.id}}" name="rating{{review.id}}" value="4" /><label class="full"
-            for="star4{{review.id}}" title="Pretty good - 4 stars"></label>
-          <input type="radio" id="star3half{{review.id}}" name="rating{{review.id}}" value="3 and a half" /><label
-            class="half" for="star3half{{review.id}}" title="Meh - 3.5 stars"></label>
-          <input type="radio" id="star3{{review.id}}" name="rating{{review.id}}" value="3" /><label class="full"
-            for="star3{{review.id}}" title="Meh - 3 stars"></label>
-          <input type="radio" id="star2half{{review.id}}" name="rating{{review.id}}" value="2 and a half" /><label
-            class="half" for="star2half{{review.id}}" title="Kinda bad - 2.5 stars"></label>
-          <input type="radio" id="star2{{review.id}}" name="rating{{review.id}}" value="2" /><label class="full"
-            for="star2{{review.id}}" title="Kinda bad - 2 stars"></label>
-          <input type="radio" id="star1half{{review.id}}" name="rating{{review.id}}" value="1 and a half" /><label
-            class="half" for="star1half{{review.id}}" title="Meh - 1.5 stars"></label>
-          <input type="radio" id="star1{{review.id}}" name="rating{{review.id}}" value="1" /><label class="full"
-            for="star1{{review.id}}" title="Sucks big time - 1 star"></label>
-          <input type="radio" id="starhalf{{review.id}}" name="rating{{review.id}}" value="half" /><label class="half"
-            for="starhalf{{review.id}}" title="Sucks big time - 0.5 stars"></label>
-        </fieldset>
+        <span class="rating" data-stars="5" data-default-rating={{review.score}} disabled></span>
       </div>
-      <div>
+      <div class="reviewComment">
         {{review.text}}
+      </div>
+      <div class="reviewDetail">
+        {{review.register_date|date:"Y년 m월 d일"}}
       </div>
     </div>
     {% endfor %}
   </div>
 </div>
+{% endblock %}
+{% block script %}
+<script>
+  // rating 속성의 요소를 모두 얻어서
+  let ratings = document.getElementsByClassName('rating');
+  // star로 만들어버림
+  let r = [...ratings].map(star => new SimpleStarRating(star))
+  // 사용자가 평가하는 별점의 경우 이벤트 추가
+  let myRating = document.getElementById('myStar');
+  myRating.addEventListener('rate', function (e) {
+    console.log(e.detail)
+  });
+</script>
 {% endblock %}
