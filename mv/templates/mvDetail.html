@@ -21,13 +21,15 @@
       </div>
     </div>
   </div>
-  <div class="commentWriter">
+  <form class="commentWriter" method="POST" action="{% url 'create_review' video.id %}">
+    {% csrf_token %}
     <!-- 로그인 기능 추가하면 if에 not 추가 -->
     {% if request.user.is_authenticated %}
     <span id="myStar" class="rating big" data-stars="5" data-default-rating="3"></span>
-    <textarea rows="8" placeholder="뮤비에 대한 리뷰를 작성해주세요."></textarea>
+    <textarea rows="8" placeholder="뮤비에 대한 리뷰를 작성해주세요." name="text"></textarea>
+    <input name="score" type="hidden" id="score" value="3" />
     <div class="buttonContainer">
-      <button>기록하기</button>
+      <button type="submit">기록하기</button>
     </div>
     {% else %}
     <span id="myStar" class="rating big" data-stars="5" data-default-rating="3" disabled></span>
@@ -36,7 +38,7 @@
       <button disabled>기록하기</button>
     </div>
     {% endif %}
-  </div>
+  </form>
   <div class="commentContainer">
     {% for review in video.reviews.all %}
     <div class="review">
@@ -66,8 +68,9 @@
   let r = [...ratings].map(star => new SimpleStarRating(star))
   // 사용자가 평가하는 별점의 경우 이벤트 추가
   let myRating = document.getElementById('myStar');
+  let score = document.getElementById('score');
   myRating.addEventListener('rate', function (e) {
-    console.log(e.detail)
+    score.value = e.detail;
   });
 </script>
 {% endblock %}
