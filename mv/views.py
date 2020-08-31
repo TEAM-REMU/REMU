@@ -4,14 +4,14 @@ from .models import MusicVideo
 # Create your views here.
 
 
-def mvList(request):
+def mv_list(request):
 
     videos = MusicVideo.objects.all()
 
     return render(request, 'mvList.html', {'videos': videos})
 
 
-def mvDetail(request, id):
+def mv_detail(request, id):
 
     try:
         video = MusicVideo.objects.get(pk=id)

@@ -4,6 +4,6 @@ from django.urls import path
 import mv.views
 
 urlpatterns = [
-    path('', mv.views.mvList, name="mvList"),
-    path('<int:id>', mv.views.mvDetail, name="mvDetail"),
+    path('', mv.views.mv_list, name="mvList"),
+    path('<int:id>', mv.views.mv_detail, name="mvDetail"),
 ]
