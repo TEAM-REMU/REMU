@@ -1,1 +1,194 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
+.container1 {
+    display: flex;
+    flex-direction: column;
+    width: 57vw;
+    height: 300px;
+    background-color: #FFCD7D;
+    color: white;
+    font-size: 40px;
+    line-height: 50px;
+    padding: 10px;
+    border-radius: 1em;
+    margin-bottom: 50px;
+    -webkit-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.introtext {
+    width: 50vw;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.search {
+    margin: 0 auto;
+}
+
+.container2 {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 1em;
+    -webkit-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    margin-bottom: 50px;
+    height: 450px;
+    padding: 50px;
+    width: 53vw;
+}
+
+.block2 {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.line1 {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+}
+
+.line2 {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+}
+
+
+.block0 {
+    display: flex;
+    margin: 0 auto;
+}
+
+
+.container3 {
+    background-color: white;
+    border-radius: 1em;
+    -webkit-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    margin-bottom: 50px;
+    padding: 50px;
+    width: 53vw;
+}
+
+.block3 {
+    background-color: #FE8369;
+    color: white;
+    padding: 30px;
+    border-radius: 1em;
+    -webkit-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+}
+
+input {
+    width: 45vw;
+    border: none;
+    border-radius: 20px;
+    height: 45px;
+    padding-left: 50px;
+    margin-top: 40px;
+    -webkit-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+}
+
+input:focus {
+    outline: none;
+}
+
+.search_button {
+    border: none;
+    padding: 12px;
+    color: white;
+    background-color: #FE8369;
+    border-radius: 10px;
+    -webkit-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+}
+
+.profile {
+    background: white;
+    border: none;
+    color: #FE8369;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.profile:focus {
+    outline: none;
+}
+
+.profile:hover {
+    background: #FFCD7D;
+    color: white;
+}
+
+/* 색상 임시로 정해둠 */
+
+.hashtag {
+    margin-bottom: 15px;
+}
+
+.tag {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.textbox {
+    background: #FFCD7D;
+    height: 315px;
+    margin: 30px;
+    margin: 0 auto;
+}
+
+.review4 {
+    background: #0E1921;
+    color: white;
+    border: none;
+    padding: 10px;
+    position: absolute;
+    float: right;
+    margin-left: 250px;
+
+}
+
+.mvreview {
+    display: flex;
+}
+
+.review1 {
+    font-size: 29px;
+    padding: 20px;
+    margin: 20px;
+}
+
+.review2 {
+    padding: 20px;
+    margin: 20px;
+}
+
+.review3 {
+    padding: 20px;
+    margin: 20px;
+}
