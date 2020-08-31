@@ -31,7 +31,7 @@ def create_review(request, mv_id):
         review.score = request.POST["score"]
 
         review.save()
-        return redirect('mvDetail', mv_id)
+        return redirect('mv_detail', mv_id)
     except MusicVideo.DoesNotExist:
         print("해당 뮤직비디오가 존재하지 않음")
-        return redirect('mvDetail', mv_id)
+        return redirect('mv_detail', mv_id)
