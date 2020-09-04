@@ -18,7 +18,8 @@ def mv_list(request):
 def mv_detail(request, id):
     try:
         video = MusicVideo.objects.get(pk=id)
-        return render(request, 'mvDetail.html', {'video': video})
+        reviews = video.reviews.all()[:3]
+        return render(request, 'mvDetail.html', {'video': video, 'reviews': reviews})
     except MusicVideo.DoesNotExist:
         return redirect('/404')
 
@@ -44,6 +45,7 @@ def create_review(request, mv_id):
 @api_view(['GET'])
 def get_review_for_mv(request, mv_id):
     if request.method == 'GET':
-        reviews = Review.objects.filter(video=mv_id)
+        chunk = int(request.GET.get('count', 0))
+        reviews = Review.objects.filter(video=mv_id)[chunk:chunk+3]
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data)
