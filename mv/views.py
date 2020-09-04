@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import MusicVideo, Review
+from .serializers import ReviewSerializer
+from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -19,6 +22,7 @@ def mv_detail(request, id):
     except MusicVideo.DoesNotExist:
         return redirect('/404')
 
+
 def create_review(request, mv_id):
     try:
         video = MusicVideo.objects.get(pk=mv_id)
@@ -35,3 +39,11 @@ def create_review(request, mv_id):
     except MusicVideo.DoesNotExist:
         print("해당 뮤직비디오가 존재하지 않음")
         return redirect('mv_detail', mv_id)
+
+
+@api_view(['GET'])
+def get_review_for_mv(request, mv_id):
+    if request.method == 'GET':
+        reviews = Review.objects.filter(video=mv_id)
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data)
