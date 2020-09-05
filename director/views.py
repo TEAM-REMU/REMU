@@ -1,8 +1,8 @@
 from django.shortcuts import render
 
 # Create your views here.
-def directorList(request):
-    return render(request, 'directorList.html')
+def director_list(request):
+    return render(request, 'director_list.html')
 
-def directorProfile(request, id):
-    return render(request, 'directorProfile.html')
+def director_profile(request, id):
+    return render(request, 'director_profile.html')
