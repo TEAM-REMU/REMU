@@ -4,6 +4,6 @@ from django.urls import path
 import director.views
 
 urlpatterns = [
-    path('directorList', director.views.directorList, name="directorList"),
-    path('directorProfile/<int:id>', director.views.directorProfile, name="directorProfile"),
+    path('director', director.views.director_list, name="director_list"),
+    path('director/<int:id>', director.views.director_profile, name="director_profile"),
 ]
