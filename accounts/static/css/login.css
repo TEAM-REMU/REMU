@@ -29,7 +29,7 @@
 
 }
 
-input[type=text], input[type=password]{
+input[label='아이디'], label='비밀번호'{
     border: none;
     outline: none;
     display: block;

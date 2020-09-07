@@ -12,9 +12,17 @@
     <div class = "signInDetail">
         <form method = "POST" action = "">
             {% csrf_token %}
-            <input type="text" placeholder="  아이디" name=username required>
-            <input type="password" placeholder="  비밀번호" name="password" required>
-            {{error}}
+            {% for field in form %} 
+            <div class="form-group">                                                            
+                <label for="{{field.id_for_label }}">{{field.label}}</label>                  
+                <input type="{{field.field.widget.input_type}}" class="form-control" id="{{field.id_for_label }}"
+                             placeholder="{{field.label}}" name="{{field.name}}"/>
+            </div>
+            {% if field.errors %}                                                             
+            <span style="color: red">{{field.errors}}</span>
+            {% endif %}
+            {% endfor %}
+
             <button type="signIn">로그인</button>
         </form>
         <a href="{% url 'signup' %}"><button type="submit">회원가입</button></a>
