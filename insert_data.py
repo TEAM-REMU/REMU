@@ -6,10 +6,11 @@ from director.models import *
 from mv.models import *
 import csv
 import datetime
+import re
 
 file_name = 'data'
-    # wr.writerow(['감독 이름', '감독 이미지 주소', '감독 SNS 링크', '프로덕션 이름', '프로덕션 이미지 주소', '뮤비 제목', '뮤비 주소', 
-            # '아티스트', '뮤비 업로드 날짜'])
+# wr.writerow(['감독 이름', '감독 이미지 주소', '감독 SNS 링크', '프로덕션 이름', '프로덕션 이미지 주소', '뮤비 제목', '뮤비 주소', 
+    # '아티스트', '뮤비 업로드 날짜'])
 
 #데이터 파일 열기
 with open(f'{file_name}.csv') as csvDataFile:
@@ -32,55 +33,47 @@ for i in range(1, len(data)):
 for i in range(1, len(data)):
     # 감독이 있는지 체크
     if(len(data[i][0])):
-        # 프로덕션이 있는 경우 
-        # 외래키 물려주기 위해서 데이터 조회해서 해당 프로덕션 가져오기
-        if(len(data[i][3])):
+        # 일단 프로덕션을 제외하고 감독 저장
+        director, created = Director.objects.get_or_create(
+            name = data[i][0],
+            sns_link = data[i][2],
+            image_url = data[i][1]
+        )
+        
+        # 프로덕션이 있고 감독 객체에 프로덕션이 비어있는 경우
+        if(len(data[i][3]) and director.production is None):
+            # 외래키 물려주기 위해서 데이터 조회해서 해당 프로덕션 가져오기
             pre_production = Production.objects.get(name = data[i][3], image_url = data[i][4])
-            
-            director, created = Director.objects.get_or_create(
-                name = data[i][0],
-                production = pre_production,
-                sns_link = data[i][2],
-                image_url = data[i][1]
-            )
-        # 프로덕션이 없는 경우    
-        elif(len(data[i][3]) == 0):
-            director, created = Director.objects.get_or_create(
-                name = data[i][0],
-                sns_link = data[i][2],
-                image_url = data[i][1]
-            )
-       
+            director.production = pre_production
+            director.save()
 
+
+#으으으으으으 csv파일 너무 지저분해역!!!
+upload_date_pattern = re.compile('\d{4,}-\d{1,2}-\d{1,2}') 
 
 # DB에 뮤비 저장
 for i in range(1, len(data)):
     # 뮤비 제목이 있는지 체크
     if(len(data[i][5])):
-        # 해당 뮤비의 프로덕션이 있는 경우
-        if(len(data[i][3])):
+        # 일단 감독, 프로덕션 생각하지 않고 뮤비 저장하기
+        music_video, created = MusicVideo.objects.get_or_create(
+            title = data[i][5],
+            video_link = data[i][6],
+            artist = data[i][7]
+        )
+        # upload_date가 말썽입니다 여러분~ 더 얘기해봐요! 호호!
+        if(upload_date_pattern.match(data[i][8]) is not None):
+            music_video.upload_date = datetime.datetime.strptime(data[i][8], '%Y-%m-%d')
+            music_video.save()
+
+        #감독이 없고 프로덕션만 있는데 프로덕션이 아직 저장 안됐을때 
+        if(len(data[i][0]) == 0 and music_video.production is None):
             pre_production = Production.objects.get(name = data[i][3], image_url = data[i][4])
-        if(len(data[i][0])):
+            music_video.production = pre_production
+            music_video.save()
+
+        #감독이 있는데 아직 저장 안됐을때
+        elif(len(data[i][0]) and music_video.director is None):
             pre_director = Director.objects.get(name = data[i][0], sns_link = data[i][2], image_url = data[i][1])
-        
-        #감독이 없는 경우 프로덕션만 있을 때
-        if(len(data[i][0]) == 0):
-            music_video, created = MusicVideo.objects.get_or_create(
-                title = data[i][5],
-                production = pre_production,
-                video_link = data[i]6],
-                artist = data[i][7],[
-                upload_date = datetime.datetime.strptime(data[i][8], '%Y-%m-%d')
-            )
-
-        #감독이 있는 경우 프로덕션과 상관없이 감독만 외래키 물리면 돼
-        elif(len(data[i][0])):
-                music_video, created = MusicVideo.objects.get_or_create(
-                title = data[i][5],
-                director = pre_director,
-                video_link = data[i][6],
-                artist = data[i][7],
-                upload_date = datetime.datetime.strptime(data[i][8], '%Y-%m-%d')
-            )
-
-
+            music_video.director = pre_director
+            music_video.save()
