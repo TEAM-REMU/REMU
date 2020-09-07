@@ -10,6 +10,8 @@ class Profile(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # 이름
     name = models.CharField(max_length=10)
+    # 닉네임
+    nickname = models.CharField(max_length=10, default="")
     # 이미지 주소
     imageURL = models.CharField(max_length=100)
     # 모델 생성 날짜

@@ -4,7 +4,7 @@ from django.urls import path
 import accounts.views
 
 urlpatterns = [
-    path('signIn', accounts.views.signIn, name="signIn"),
-    path('signUp', accounts.views.signUp, name="signUp"),
-    path('myPage', accounts.views.myPage, name="myPage")
+    path('login', accounts.views.login, name="login"),
+    path('signup', accounts.views.signup, name="signup"),
+    path('my_page/<int:id>', accounts.views.my_page, name="my_page")
 ]
