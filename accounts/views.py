@@ -3,37 +3,22 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Profile
 
-from django.contrib.auth import login as django_login, logout as django_logout, authenticate
-from .forms import LoginForm
 # Create your views here.
 
 def login(request):
-    if request.method == 'POST':
-        login_form = LoginForm(request.POST)
-        
-        if login_form.is_valid():
-            username = login_form.cleaned_data['username']
-            password = login_form.cleaned_data['password']
+    if request.method == "POST":
+       
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(request, username = username, password = password)
 
-            user = authenticate(
-                username = username,
-                password = password
-            )
-
-            if user:
-                django_login(request, user)
-                return redirect('home')
-
-            login_form.add_error(None, '아이디 또는 비밀번호가 올바르지 않습니다')
-
+        if user is not None:
+            auth.login(request, user)
+            return redirect('home')
+        else:
+            return render(request, 'login.html', {'error': '아이디나 비밀번호가 틀립니다.'})
     else:
-        login_form = LoginForm()
-
-    context = {
-        'login_form':login_form
-    }
-
-    return render(request, 'login.html', context)    
+        return render(request, 'login.html')  
 
 def logout(request):
     django_logout(request)
@@ -42,9 +27,35 @@ def logout(request):
 def signup(request):
 
     if request.method == "POST":
+        # 아이디 글자수 제한(2-10자)
+        username_len = len(request.POST['username'])
+        if username_len > 10 or username_len < 2:
+            return render(request, 'signup.html', {'error_0': '글자수가 2이상 10이하여야 합니다.'})
+        
+        # 아이디 중복 검사
+        ignuped_username = User.objects.filter(username=request.POST["username"])
+        if len(signuped_username) >= 1:
+            return render(request, 'signup.html', {'error_1': '존재하는 아이디입니다'})
+
+        # 닉네임 글자수 제한(2-10자)
+        nickname_len = len(request.POST['nickname'])
+        if nickname_len > 10 or nickname_len < 2:
+            return render(request, 'signup.html', {'error_0': '글자수가 2이상 10이하여야 합니다.'})
+
+        # 닉네임 중복 검사
+        signuped_user_profile = Profile.objects.filter(nickname=request.POST["nickname"])
+        if len(signuped_user_profile) >= 1:
+            return render(request, 'signup.html', {'error_2': '존재하는 닉네임입니다'})
+
+        # 비밀번호 재입력 일치 여부 확인 & 유저 profile 생성
         if request.POST["password"] == request.POST["re_password"]:
             user = User.objects.create_user(
                 username = request.POST['username'], password = request.POST['password'], email = request.POST['email'])
+            profile = Profile()
+            profile.user = user
+            profile.nickname = request.POST["nickname"]
+            profile.image = request.POST["image"]
+            profile.save()
             auth.login(request, user)
             return redirect('home')
         return render(request, 'signup.html')

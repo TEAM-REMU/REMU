@@ -14,11 +14,14 @@
     <div class = "signUpDetail">
         <form method = "POST" action = "">
             {% csrf_token %}
-            <input type="text" placeholder="  아이디" name="username" required>
+            <input type="text" placeholder="  아이디" name="username" maxlength="10" minlength="2" required>
+            <div style = "color:red">{{error_1}}</div>
             <input type="password" placeholder="  비밀번호" name="password" required>
             <input type="password" placeholder="  비밀번호 재입력" name="re_password" required>
-            <input type="text" placeholder="  닉네임" name="nickname" required>
+            <input type="text" placeholder="  닉네임" name="nickname" maxlength="10" minlength="2" required>
+            <div style = "color:red">{{error_2}}</div>
             <input type="email" placeholder="  이메일" name="email" required>
+            <input type="file" placeholder="  이미지" name="image">
             <button type="submit">회원가입</button>
         </form>
     </div>
