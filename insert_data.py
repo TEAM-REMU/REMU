@@ -61,14 +61,18 @@ for i in range(1, len(data)):
             video_link = data[i][6],
             artist = data[i][7]
         )
+        upload_date = data[i][8]
         # upload_date가 말썽입니다 여러분~ 더 얘기해봐요! 호호!
-        if(upload_date_pattern.match(data[i][8]) is not None):
+        if(upload_date_pattern.match(data[i][8]) is not None and upload_date[len(upload_date)-1] is not '-'):
             music_video.upload_date = datetime.datetime.strptime(data[i][8], '%Y-%m-%d')
             music_video.save()
 
         #감독이 없고 프로덕션만 있는데 프로덕션이 아직 저장 안됐을때 
         if(len(data[i][0]) == 0 and music_video.production is None):
-            pre_production = Production.objects.get(name = data[i][3], image_url = data[i][4])
+            try:
+                pre_production = Production.objects.get(name = data[i][3], image_url = data[i][4])
+            except:
+                continue    
             music_video.production = pre_production
             music_video.save()
 
