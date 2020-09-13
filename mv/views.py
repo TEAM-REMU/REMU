@@ -4,6 +4,8 @@ from .serializers import ReviewSerializer
 from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from rest_framework.response import Response
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -24,13 +26,19 @@ def mv_detail(request, id):
         return redirect('/404')
 
 
+@login_required(login_url='/accounts/login')
 def create_review(request, mv_id):
     try:
+        reviewCount = Review.objects.filter(author=request.user.id).count()
+        if reviewCount > 0:
+            print("이미 리뷰 작성한 유저")
+            return redirect('mv_detail', mv_id)
+
         video = MusicVideo.objects.get(pk=mv_id)
 
         review = Review()
         # 로그인 과정 없으니 아무 유저나 가져와서 입력
-        review.author = User.objects.all().first()
+        review.author = request.user
         review.video = video
         review.text = request.POST["text"]
         review.score = request.POST["score"]
