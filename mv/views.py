@@ -12,14 +12,14 @@ def mv_list(request):
 
     videos = MusicVideo.objects.all()
 
-    return render(request, 'mvList.html', {'videos': videos})
+    return render(request, 'mv_list.html', {'videos': videos})
 
 
 def mv_detail(request, id):
     try:
         video = MusicVideo.objects.get(pk=id)
         reviews = video.reviews.all()[:3]
-        return render(request, 'mvDetail.html', {'video': video, 'reviews': reviews})
+        return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews})
     except MusicVideo.DoesNotExist:
         return redirect('/404')
 
