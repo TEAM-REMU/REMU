@@ -21,7 +21,14 @@ def mv_detail(request, id):
     try:
         video = MusicVideo.objects.get(pk=id)
         reviews = video.reviews.all()[:3]
-        return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews})
+        if request.user is None:
+            return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews})
+        else:
+            try:
+                review = Review.objects.get(author=request.user.id)
+                return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews, 'review': review})
+            except Review.DoesNotExist:
+                return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews})
     except MusicVideo.DoesNotExist:
         return redirect('/404')
 
@@ -57,3 +64,15 @@ def get_review_for_mv(request, mv_id):
         reviews = Review.objects.filter(video=mv_id)[chunk:chunk+3]
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data)
+
+
+@login_required(login_url='/accounts/login')
+def delete_review(request, review_id):
+    try:
+        review = Review.objects.get(pk=review_id)
+        mvId = review.video.id
+        if review.author.id == request.user.id:
+            review.delete()
+        return redirect('mv_detail', mvId)
+    except Review.DoesNotExist:
+        return redirect('mv_detail', mvId)

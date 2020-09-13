@@ -9,4 +9,6 @@ urlpatterns = [
     path('createReview/<int:mv_id>', mv.views.create_review, name="create_review"),
     path('review/<int:mv_id>', mv.views.get_review_for_mv,
          name="get_review_for_mv"),
+    path('deleteReview/<int:review_id>', mv.views.delete_review,
+         name="delete_review"),
 ]

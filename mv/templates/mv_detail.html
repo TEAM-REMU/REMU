@@ -18,24 +18,43 @@
       <div>(4.8/5.0)</div>
     </div>
   </div>
+  <!-- 로그인 기능 추가하면 if에 not 추가 -->
+  {% if request.user.is_authenticated %}
+  <!-- 작성한 리뷰가 존재하면 -->
+  {% if review %}
   <form class="commentWriter" method="POST" action="{% url 'create_review' video.id %}">
     {% csrf_token %}
-    <!-- 로그인 기능 추가하면 if에 not 추가 -->
-    {% if request.user.is_authenticated %}
+    <span id="myStar" class="rating big" data-stars="5" data-default-rating="{{review.score}}" disabled></span>
+    <textarea rows="8" name="text" disabled>{{review.text}}</textarea>
+    <input name="score" type="hidden" id="score" value="{{review.score}}" />
+    <div class="buttonContainer">
+      <button type="submit" style="margin-right: 15px">수정하기</button>
+      <a href="{% url 'delete_review' review.id %}">
+        <button type="button">삭제하기</button>
+      </a>
+    </div>
+  </form>
+  <!-- 작성한 리뷰가 존재하지 않는다면 -->
+  {% else %}
+  <form class="commentWriter" method="POST" action="{% url 'create_review' video.id %}">
+    {% csrf_token %}
     <span id="myStar" class="rating big" data-stars="5" data-default-rating="3"></span>
     <textarea rows="8" placeholder="뮤비에 대한 리뷰를 작성해주세요." name="text"></textarea>
     <input name="score" type="hidden" id="score" value="3" />
     <div class="buttonContainer">
       <button type="submit">기록하기</button>
     </div>
-    {% else %}
+  </form>
+  {% endif %} {% else %}
+  <form class="commentWriter">
+    {% csrf_token %}
     <span id="myStar" class="rating big" data-stars="5" data-default-rating="3" disabled></span>
     <textarea rows="8" placeholder="로그인을 해야 리뷰를 작성할 수 있습니다" disabled></textarea>
     <div class="buttonContainer">
       <button disabled>기록하기</button>
     </div>
-    {% endif %}
   </form>
+  {% endif %}
   <div class="commentContainer">
     <div id="commentScroll">
       {% for review in reviews %}
