@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
+from django.db.models import Avg
 
 # Create your views here.
 
@@ -20,15 +21,21 @@ def mv_list(request):
 def mv_detail(request, id):
     try:
         video = MusicVideo.objects.get(pk=id)
+
+        score = Review.objects.filter(
+            video=id).aggregate(Avg('score'))['score__avg']
+        if score is None:
+            score = 0
+
         reviews = video.reviews.all()[:3]
         if request.user is None:
-            return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews})
+            return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews, 'score': score})
         else:
             try:
                 review = Review.objects.get(author=request.user.id)
-                return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews, 'review': review})
+                return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews, 'score': score, 'review': review})
             except Review.DoesNotExist:
-                return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews})
+                return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews, 'score': score})
     except MusicVideo.DoesNotExist:
         return redirect('/404')
 
