@@ -15,7 +15,7 @@
     <div class="videoInformation">업로드 날짜 : {{video.upload_date|date:"Y년 m월 d일"}}</div>
     <div class="videoInformation score">
       <span id="mvStar" class="rating middle" data-stars="5" data-default-rating="{{score}}" disabled></span>
-      <div>({{score}}/5.0)</div>
+      <div>({{score|floatformat:2}}/5.0)</div>
     </div>
   </div>
   <!-- 로그인 기능 추가하면 if에 not 추가 -->
