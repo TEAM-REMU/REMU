@@ -22,16 +22,28 @@
   {% if request.user.is_authenticated %}
   <!-- 작성한 리뷰가 존재하면 -->
   {% if review %}
-  <form class="commentWriter" method="POST" action="{% url 'create_review' video.id %}">
+  <!-- 보기용 -->
+  <div class="commentWriter" id="normalWriter">
     {% csrf_token %}
     <span id="myStar" class="rating big" data-stars="5" data-default-rating="{{review.score}}" disabled></span>
     <textarea rows="8" name="text" disabled>{{review.text}}</textarea>
     <input name="score" type="hidden" id="score" value="{{review.score}}" />
     <div class="buttonContainer">
-      <button type="submit" style="margin-right: 15px">수정하기</button>
+      <button type="button" style="margin-right: 15px" id="startEdit">수정하기</button>
       <a href="{% url 'delete_review' review.id %}">
         <button type="button">삭제하기</button>
       </a>
+    </div>
+  </div>
+  <!--  수정용  -->
+  <form class="commentWriter" method="POST" action="{% url 'edit_review' review.id %}" id="editWriter" style="display: none">
+    {% csrf_token %}
+    <span id="editStar" class="rating big" data-stars="5" data-default-rating="{{review.score}}"></span>
+    <textarea rows="8" name="text">{{review.text}}</textarea>
+    <input name="score" type="hidden" id="editScore" value="{{review.score}}" />
+    <div class="buttonContainer">
+      <button type="submit" style="margin-right: 15px" id="doneEdit">수정 완료</button>
+      <button type="button" id="cancelEdit">수정 취소</button>
     </div>
   </form>
   <!-- 작성한 리뷰가 존재하지 않는다면 -->
@@ -89,9 +101,48 @@
   let r = [...ratings].map((star) => new SimpleStarRating(star));
   // 사용자가 평가하는 별점의 경우 이벤트 추가
   let myRating = document.getElementById('myStar');
+  let editRating = document.getElementById('editStar');
   let score = document.getElementById('score');
+  let editScore = document.getElementById('editScore');
   myRating.addEventListener('rate', function (e) {
     score.value = e.detail;
+  });
+  editRating.addEventListener('rate', function (e) {
+    editScore.value = e.detail;
+  });
+</script>
+<!-- 리뷰 수정 -->
+<script>
+  let reviewOriginal = '{{review.text}}';
+  let scoreOriginal = '{{review.score}}';
+  let editButton = document.getElementById('startEdit');
+  let doneButton = document.getElementById('doneEdit');
+  let cancelButton = document.getElementById('cancelEdit');
+
+  let editWriter = document.getElementById('editWriter');
+  let normalWriter = document.getElementById('normalWriter');
+
+  let editInput = document.querySelector('#editWriter > textarea');
+  let editStar = document.querySelector('#editWriter > #myStar');
+
+  function setEditMode(mode) {
+    if (mode) {
+      normalWriter.style.display = 'none';
+      editWriter.style.display = 'flex';
+      editStar.setAttribute('data-rating', scoreOriginal);
+      editInput.value = reviewOriginal;
+    } else {
+      editWriter.style.display = 'none';
+      normalWriter.style.display = 'flex';
+    }
+  }
+
+  editButton.addEventListener('click', () => {
+    setEditMode(true);
+  });
+  doneButton.addEventListener('click', () => {});
+  cancelButton.addEventListener('click', () => {
+    setEditMode(false);
   });
 </script>
 <!-- 무한 스크롤링 구현 -->

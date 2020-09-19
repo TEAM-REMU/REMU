@@ -11,4 +11,6 @@ urlpatterns = [
          name="get_review_for_mv"),
     path('deleteReview/<int:review_id>', mv.views.delete_review,
          name="delete_review"),
+    path('editReview/<int:review_id>', mv.views.edit_review,
+         name="edit_review"),
 ]

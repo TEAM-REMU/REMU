@@ -83,3 +83,16 @@ def delete_review(request, review_id):
         return redirect('mv_detail', mvId)
     except Review.DoesNotExist:
         return redirect('mv_detail', mvId)
+
+@login_required(login_url='/accounts/login')
+def edit_review(request, review_id):
+    try:
+        review = Review.objects.get(pk=review_id)
+        mvId = review.video.id
+        if review.author.id == request.user.id:
+            review.text = request.POST["text"]
+            review.score = request.POST["score"]
+            review.save()
+        return redirect('mv_detail', mvId)
+    except Review.DoesNotExist:
+        return redirect('mv_detail', mvId)
