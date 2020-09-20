@@ -1,8 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
-
-from django import forms
+from mv.models import Review
 # Create your models here.
 
 
@@ -18,8 +17,6 @@ class Profile(models.Model):
     image = models.ImageField(upload_to = 'images/', blank=True, null=True)
     # 모델 생성 날짜
     register_date = models.DateTimeField(default=timezone.now)
-
-
 
     def __str__(self):
         return self.nickname

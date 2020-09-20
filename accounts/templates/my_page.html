@@ -10,7 +10,7 @@
         <img src = "{% static 'img/댕댕이.jpeg' %}">
     </div>
     <p>
-        <span>댕댕이</span>님, <span>12개</span>의 MV를 아카이빙하셨군요!
+        <span>{{user.username}}</span>님, <span>12개</span>의 MV를 아카이빙하셨군요!
     </p>
 </div>
 
@@ -25,5 +25,23 @@
         <div class = "bar">
         </div>
     </div>    
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 
 {% endblock %}

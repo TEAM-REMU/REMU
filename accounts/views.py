@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
-from .models import Profile
+from .models import Profile, Review
+
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # Create your views here.
 
@@ -33,7 +35,7 @@ def signup(request):
             return render(request, 'signup.html', {'error_0': '글자수가 2이상 10이하여야 합니다.'})
         
         # 아이디 중복 검사
-        ignuped_username = User.objects.filter(username=request.POST["username"])
+        signuped_username = User.objects.filter(username=request.POST["username"])
         if len(signuped_username) >= 1:
             return render(request, 'signup.html', {'error_1': '존재하는 아이디입니다'})
 
@@ -54,7 +56,7 @@ def signup(request):
             profile = Profile()
             profile.user = user
             profile.nickname = request.POST["nickname"]
-            profile.image = request.POST["image"]
+            profile.image = request.FILES['image']
             profile.save()
             auth.login(request, user)
             return redirect('home')
@@ -63,4 +65,11 @@ def signup(request):
     return render(request, 'signup.html')
 
 def my_page(request, id):
-    return render(request, 'my_page.html')
+    # user = Profile.objects.get(pk=id)
+
+    review_list = Review.objects.all()
+    paginator = Paginator(review_list, 25) # Show 25 contacts per page.
+
+    page_number = request.GET.get('page')
+    page_id = paginator.get_page(page_number)
+    return render(request, 'my_page.html', {'user': user})
