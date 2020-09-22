@@ -192,3 +192,38 @@ input:focus {
     padding: 20px;
     margin: 20px;
 }
+
+.box {
+    background-color: white;
+    border-radius: 1em;
+    -webkit-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    margin-bottom: 50px;
+    padding: 50px;
+    width: 53vw;;
+}
+
+.lumpense1 {
+    display: flex;
+    padding: 20px;
+}
+
+.mv {
+    margin: 7px;
+}
+
+.button1 {
+    border: none;
+    padding: 12px;
+    color: white;
+    background-color: #FE8369;
+    border-radius: 10px;
+    position: absolute;
+    float: right;
+    margin: 0 auto;
+}
+
+.boxclass {
+    margin: 0 auto;
+}

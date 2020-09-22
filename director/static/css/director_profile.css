@@ -47,10 +47,6 @@
     display: flex;
     justify-content: flex-end;
     padding: 30px 100px;
-<<<<<<< HEAD
-=======
-    padding: 10;
->>>>>>> 5070472aade9d541d55f1a4f25bd1d1e9ccd619f
 }
 
 .condition:nth-child(1){
@@ -67,10 +63,5 @@
 
 .mvResult img{
     width: 150px;
-<<<<<<< HEAD
-    padding: 20px
->>>>>>> Stashed changes
-=======
-    shadow
->>>>>>> 5070472aade9d541d55f1a4f25bd1d1e9ccd619f
+    padding: 20px;
 }
