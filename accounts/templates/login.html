@@ -7,13 +7,13 @@
 {% block contents %}
 <div class = "signInContainer">
     <div class = "logo">
-        <img src = "{% static 'img/logo.png' %}">
+        <a href = "{% url 'home' %}"><img src = "{% static 'img/logo.png' %}"></a>
     </div>
     <div class = "signInDetail">
         <form method = "POST" action = "">
             {% csrf_token %}
-            <input type="text" placeholder="  아이디" name=username maxlength="10" minlength="2" required>
-            <input type="password" placeholder="  비밀번호" name="password" required>
+            <input type="text" placeholder="아이디" name=username maxlength="10" minlength="2" required>
+            <input type="password" placeholder="비밀번호" name="password" required>
             <div style = "color:red">{{error}}</div>
             <button type="signIn">로그인</button>
         </form>

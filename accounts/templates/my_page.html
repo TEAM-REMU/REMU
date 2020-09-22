@@ -7,10 +7,10 @@
 {% block contents %}
 <div class = "myPageContainer">
     <div class = "profileContainer">
-        <img src = "{% static 'img/댕댕이.jpeg' %}">
+        <img src = {{user.image}}>
     </div>
     <p>
-        <span>{{user.username}}</span>님, <span>12개</span>의 MV를 아카이빙하셨군요!
+        <span>{{user.nickname}}</span>님, <span>12개</span>의 MV를 아카이빙하셨군요!
     </p>
 </div>
 
