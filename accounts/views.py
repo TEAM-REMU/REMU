@@ -67,9 +67,9 @@ def signup(request):
 def my_page(request, id):
     user = Profile.objects.get(pk=id)
 
-    review_list = Review.objects.all()
-    paginator = Paginator(review_list, 25)
+    review = Review.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(review, 25)
+    review_list = paginator.page_range
 
-    page_number = request.GET.get('page')
-    page_id = paginator.get_page(page_number)
-    return render(request, 'my_page.html', {'user': user, 'page_id':page_id})
+    return render(request, 'my_page.html', {'user':user, 'review':review, 'review_list':review_list})
