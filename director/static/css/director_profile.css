@@ -14,24 +14,24 @@
     padding: 20px;
 }
 
-.info:nth-child(1) img{
+/* .info:nth-child(1) img{
     width: 60px;
     padding: 5px;
-}
+} */
 
-.info:nth-child(2){
+.info:nth-child(1){
     font-size: x-large;
     font-weight: bolder;
     padding: 10px;
 }
 
-.info:nth-child(3){
+.info:nth-child(2){
     font-size: large;
     font-weight: bolder;
     padding: 10px;
 }
 
-.info:nth-child(4){
+.info_announce{
     font-size: small;
     padding: 20px;
 }

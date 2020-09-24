@@ -13,7 +13,7 @@ file_name = 'data'
     # '아티스트', '뮤비 업로드 날짜'])
 
 #데이터 파일 열기
-with open(f'{file_name}.csv') as csvDataFile:
+with open(f'{file_name}.csv', encoding='UTF-8') as csvDataFile:
     csvReader = csv.reader(csvDataFile)
     data=list(csv.reader(csvDataFile))
 
@@ -27,6 +27,9 @@ for i in range(1, len(data)):
             name = data[i][3],
             image_url = data[i][4]
         )
+        if(len(data[i][0]) is 0):
+            production.sns_link = data[i][2]
+            production.save()
 
 
 # DB에 감독 저장
