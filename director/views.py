@@ -7,9 +7,6 @@ def director_list(request):
     return render(request, 'director_list.html')
 
 def director_profile(request, id):
-<<<<<<< Updated upstream
-    return render(request, 'director_profile.html')
-=======
     director = Director.objects.get(pk=id)      
     mv_list = MusicVideo.objects.filter(director = director)
     mv_count = mv.count()
@@ -26,4 +23,3 @@ def production_profile(request, id):
     mv_count = mv.count()
     sns_links = production.sns_link.split(',')
     return render(request, 'director_profile.html', {'data':production, 'mv_list':mv_list, 'mv_count':mv_count, 'production_name':None, 'sns_links':sns_links})
->>>>>>> Stashed changes
