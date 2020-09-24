@@ -17,7 +17,7 @@ class MusicVideo(models.Model):
     # 아티스트
     artist = models.CharField(max_length=100)
     # 뮤비 업로드 날짜
-    upload_date = models.DateTimeField()
+    upload_date = models.DateTimeField(null = True)
     # 모델 생성 날짜
     register_date = models.DateTimeField(default=timezone.now)
 
