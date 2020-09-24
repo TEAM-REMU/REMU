@@ -5,5 +5,16 @@
 {% endblock %}
 
 {% block contents %}
-404!!!!
+<div class="container">
+
+    <div class="img">
+    <img src="{% static 'img/REMU_LOGO.png' %}" />
+    </div>
+
+    <div class="right">
+    <div class="maintext">404</div>
+    <div class="warning">으앙 이 페이지는 존재하지 않습니다</div>
+    <input type="button" class="home" value="홈으로 돌아가기" onclick="location.href='{% url 'home' %}'">
+    </div>
+</div>
 {% endblock %}

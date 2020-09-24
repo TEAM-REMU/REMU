@@ -13,7 +13,7 @@
     height: 100%;
 }
 
-.signUpDetail{
+.signInDetail{
     padding: 4%;
     display: block;
     margin-left: auto;
@@ -29,7 +29,7 @@
 
 }
 
-input[type=text], input[type=password], input[type=email]{
+input[type=text], input[type=password], input[type=file]{
     border: none;
     outline: none;
     display: block;
@@ -44,17 +44,33 @@ input[type=text], input[type=password], input[type=email]{
 }
 
 
-button{
+button[type=signIn]{
     border: none;
     outline: none;
     background-color:#ffcd7d;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 10px;
     color: white;
     font-size: 18px;
     font-weight: 200;
-    height: 55px;
+    height: 40px;
+    width: 330px;
+    cursor: pointer;
+}
+
+button[type=submit]{
+    border: none;
+    outline: none;
+    background-color:#fe8369;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    font-size: 18px;
+    font-weight: 200;
+    height: 40px;
     width: 330px;
     cursor: pointer;
 }

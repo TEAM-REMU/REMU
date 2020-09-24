@@ -2,8 +2,109 @@
 {% load static %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 {% endblock %}
 
 {% block contents %}
-Welcome Home
+<div class="container">
+
+    <div class="container1">
+        <div class="introtext">
+            <div>내 최애의 뮤직비디오</div>
+            <div>누가 만들었을까?</div>
+        </div>
+        <div class="search">
+            <input type="text" placeholder="MV or 감독 or 아티스트를 검색하세요." />
+            <button class="search_button">검색</button>
+        </div>
+    </div>
+
+
+    <div class="container2">
+        <div class="block1">
+            <span>대만 첫사랑 영화를 닮은 섬세한 감성, </span>
+            <span style="color: #FE8369; font-weight: bold;">이래경 감독</span>
+            <span>의 작품을 소개합니다.</span>
+        </div>
+
+        <div class="block0">
+            <div class="block2">
+                <div class="line1">
+                    <div class="content">
+                        <img width="240" src="https://i.ytimg.com/vi/3w5iMGSHvsE/maxresdefault.jpg" />
+                        <br />
+                        <span>에피톤프로젝트 - 첫사랑</span>
+                    </div>
+                    <div class="content">
+                        <img width="240" src="https://i.ytimg.com/vi/4HG_CJzyX6A/maxresdefault.jpg" />
+                        <br />
+                        <span>태연 - 사계</span>
+                    </div>
+                    <div class="content">
+                        <img width="240" src="https://i.ytimg.com/vi/BzYnNdJhZQw/maxresdefault.jpg" />
+                        <br />
+                        <span>아이유 - 밤편지</span>
+                    </div>
+                </div>
+                <div class="line2">
+                    <div class="content">
+                        <img width="240" src="https://i.ytimg.com/vi/BzJ36wIgw24/maxresdefault.jpg" />
+                        <br />
+                        <span>1415 - 흰 눈이 오면</span>
+                    </div>
+                    <div class="content">
+                        <img width="240" src="https://i.ytimg.com/vi/a6dwchTCoAI/maxresdefault.jpg" />
+                        <br />
+                        <span>자우림 - 있지</span>
+                    </div>
+                    <div class="content">
+                        <img width="240" src="https://i.ytimg.com/vi/d9IxdwEFk1c/maxresdefault.jpg" />
+                        <br />
+                        <span>아이유 - 팔레트</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block3">
+                <div class="tag">이 감독님은 말이죠</div>
+                <div class="tag">
+                    <div class="hashtag">#첫사랑</div>
+                    <div class="hashtag">#빛바랜_필름</div>
+                    <div class="hashtag">#아기자기</div>
+                    <div class="hashtag">#아련한_추억</div>
+                    <div class="hashtag">#섬세한_감성</div>
+                </div>
+                <div class="tag">
+                    <button class="profile">감독 프로필 보러가기 >>></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container3">
+        <div>오늘 이 뮤비 어때요</div>
+
+        <div class="mvreview">
+            <div class="textbox">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/O136JYv3weQ" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="textbox">
+                <div class="review1">
+                    <span>치즈 '좋아해'</span>
+                    <span>★★★★★</span>
+                </div>
+                <div class="review2">
+                    학창시절 첫사랑 기억이 막 조작된다 난 분명 남고인데…
+                </div>
+                <div class="review3">
+                    - 흑석동 멋쟁이사자
+                </div>
+                <button class="review4">다른 리뷰 보러가기</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

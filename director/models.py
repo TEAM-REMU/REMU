@@ -18,6 +18,7 @@ class Director(models.Model):
     name = models.CharField(max_length=10)
     # 프로덕션
     production = models.ForeignKey(Production, on_delete=models.CASCADE, blank=True, null=True)
+    
     # sns 주소
     sns_link = models.TextField()
     # 이미지 주소

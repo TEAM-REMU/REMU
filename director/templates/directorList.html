@@ -5,5 +5,34 @@
 {% endblock %}
 
 {% block contents %}
-directorList
+<div class="container">
+    <div class="filter"> 
+        <div class="director-searchBar">
+            <input placeholder="감독 이름을 검색하세요." />
+            <img src="{% static 'img/search_icon.png' %}" />
+        </div>
+
+        <div class="condition">
+            가나다
+        </div>
+        <div class="condition">
+            최신순
+        </div>
+    </div>
+
+    <div class="directorResult">
+        <div class="director">
+            <img src="https://image.flaticon.com/icons/svg/2699/2699287.svg">
+        </div>
+        <div class="director">
+            <img src="https://image.flaticon.com/icons/svg/2699/2699287.svg">
+        </div>
+        <div class="director">
+            <img src="https://image.flaticon.com/icons/svg/2699/2699287.svg">
+        </div>
+
+    </div>
+    
+</div>
+
 {% endblock %}
