@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/profile_update.css' %}" />
+{% endblock %}
+
+{% block contents %}
+
+<div class = "profileUpdateContiner">
+    <form action="{% url 'update' profile.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class = "imageContainer">
+        {% if profile.image %}
+            <img src = {{profile.image.url}}>
+        {% endif %}
+        </div>
+
+        <p>새로운 사진 : <input type="file" id="imageFile" name="image"></p>
+
+        <p>닉네임 <input type="text" name="nickname" value="{{ profile.nickname }}" maxlength="10" minlength="2" required></p>
+        <div style = "color:red">{{error_0}}</div>
+        <div style = "color:red">{{error_2}}</div>
+    
+        <a href="{% url 'my_page' profile.id %}"><button type="submit">수정하기</button></a>
+    </form>
+</div>
+
+{% endblock %}
