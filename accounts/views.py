@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Profile, Review
@@ -73,3 +73,35 @@ def my_page(request, id):
     review_list = paginator.page_range
 
     return render(request, 'my_page.html', {'user':user, 'review':review, 'review_list':review_list})
+
+
+def update(request, id):
+    profile = get_object_or_404(Profile, pk = id)
+
+    if request.method == 'POST':
+        # 프로필 사진 변경
+        if 'image' in request.FILES:
+            profile.image = request.FILES['image']
+
+        # 닉네임 글자수 제한
+        nickname_len = len(request.POST['nickname'])
+        if nickname_len > 10 or nickname_len < 2:
+            return render(request, 'signup.html', {'error_0': '글자수가 2이상 10이하여야 합니다.'})
+
+        # 닉네임 중복 검사
+        profile.newnickname = request.POST['nickname']
+        signuped_user_profile = Profile.objects.filter(nickname=request.POST["nickname"])
+
+        if len(signuped_user_profile) >= 1:
+            if profile.nickname != profile.newnickname:
+                return render(request, 'profile_update.html', {'profile':profile, 'error_2': '존재하는 닉네임입니다'})
+            profile.nickname = profile.newnickname
+            profile.save()
+            return redirect('my_page', profile.id)
+
+        profile.nickname = profile.newnickname
+        profile.save()
+        return redirect('my_page', profile.id)
+
+    else:
+        return render(request, 'profile_update.html', {'profile' : profile})

@@ -1,0 +1,248 @@
+{% extends 'base.html' %} {% load static %} {% block head %}
+<link rel="stylesheet" href="{% static 'css/mvDetail.css' %}" />
+{% endblock %} {% block contents %}
+<div id="mvDetailContainer">
+  <div class="videoDetail">
+    <div id="videoContainer">
+      <iframe id="video" src="//www.youtube.com/embed/{{video.video_link}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <h1 class="videoInformation">{{video.title}}</h1>
+    <div class="videoInformation directorDetail">
+      <span>{{video.director.name}} 감독</span>
+      <a><button>감독 프로필 확인하기</button></a>
+    </div>
+    <div class="videoInformation">아티스트 : {{video.artist}}</div>
+    <div class="videoInformation">업로드 날짜 : {{video.upload_date|date:"Y년 m월 d일"}}</div>
+    <div class="videoInformation score">
+      <span id="mvStar" class="rating middle" data-stars="5" data-default-rating="{{score}}" disabled></span>
+      <div>({{score|floatformat:2}}/5.0)</div>
+    </div>
+  </div>
+  <!-- 로그인 기능 추가하면 if에 not 추가 -->
+  {% if request.user.is_authenticated %}
+  <!-- 작성한 리뷰가 존재하면 -->
+  {% if review %}
+  <!-- 보기용 -->
+  <div class="commentWriter" id="normalWriter">
+    {% csrf_token %}
+    <span id="myStar" class="rating big" data-stars="5" data-default-rating="{{review.score}}" disabled></span>
+    <textarea rows="8" name="text" disabled>{{review.text}}</textarea>
+    <input name="score" type="hidden" id="score" value="{{review.score}}" />
+    <div class="buttonContainer">
+      <button type="button" style="margin-right: 15px" id="startEdit">수정하기</button>
+      <a href="{% url 'delete_review' review.id %}">
+        <button type="button">삭제하기</button>
+      </a>
+    </div>
+  </div>
+  <!--  수정용  -->
+  <form class="commentWriter" method="POST" action="{% url 'edit_review' review.id %}" id="editWriter" style="display: none">
+    {% csrf_token %}
+    <span id="editStar" class="rating big" data-stars="5" data-default-rating="{{review.score}}"></span>
+    <textarea rows="8" name="text">{{review.text}}</textarea>
+    <input name="score" type="hidden" id="editScore" value="{{review.score}}" />
+    <div class="buttonContainer">
+      <button type="submit" style="margin-right: 15px" id="doneEdit">수정 완료</button>
+      <button type="button" id="cancelEdit">수정 취소</button>
+    </div>
+  </form>
+  <!-- 작성한 리뷰가 존재하지 않는다면 -->
+  {% else %}
+  <form class="commentWriter" method="POST" action="{% url 'create_review' video.id %}">
+    {% csrf_token %}
+    <span id="myStar" class="rating big" data-stars="5" data-default-rating="3"></span>
+    <textarea rows="8" placeholder="뮤비에 대한 리뷰를 작성해주세요." name="text"></textarea>
+    <input name="score" type="hidden" id="score" value="3" />
+    <div class="buttonContainer">
+      <button type="submit">기록하기</button>
+    </div>
+  </form>
+  {% endif %} {% else %}
+  <form class="commentWriter">
+    {% csrf_token %}
+    <span id="myStar" class="rating big" data-stars="5" data-default-rating="3" disabled></span>
+    <textarea rows="8" placeholder="로그인을 해야 리뷰를 작성할 수 있습니다" disabled></textarea>
+    <div class="buttonContainer">
+      <button disabled>기록하기</button>
+    </div>
+  </form>
+  {% endif %}
+  <div class="commentContainer">
+    <div id="commentScroll">
+      {% for review in reviews %}
+      <div class="review">
+        <div class="reviewAuthor">
+          <div class="profileBox">
+            <img src="{% static 'img/pruple.png' %}" />
+            <div class="reviewAuthorName">{{review.author.profile.name}}</div>
+          </div>
+          <span class="rating" data-stars="5" data-default-rating="{{review.score}}" disabled></span>
+        </div>
+        <div class="reviewComment">{{review.text}}</div>
+        <div class="reviewDetail">{{review.register_date|date:"Y년 m월 d일"}}</div>
+      </div>
+      {% endfor %}
+    </div>
+    <span class="loaderContainer hidden" id="loaderContainer">
+      <div class="loader-4 center">
+        <span></span>
+      </div>
+    </span>
+    <span id="done"> 모든 리뷰를 다 확인했습니다 </span>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+{% endblock %} {% block script %}
+<!-- 별점 구현 -->
+<script>
+  // rating 속성의 요소를 모두 얻어서
+  let ratings = document.getElementsByClassName('rating');
+  // star로 만들어버림
+  let r = [...ratings].map((star) => new SimpleStarRating(star));
+  // 사용자가 평가하는 별점의 경우 이벤트 추가
+  let myRating = document.getElementById('myStar');
+  let editRating = document.getElementById('editStar');
+  let score = document.getElementById('score');
+  let editScore = document.getElementById('editScore');
+  myRating.addEventListener('rate', function (e) {
+    score.value = e.detail;
+  });
+  editRating.addEventListener('rate', function (e) {
+    editScore.value = e.detail;
+  });
+</script>
+<!-- 리뷰 수정 -->
+<script>
+  let reviewOriginal = '{{review.text}}';
+  let scoreOriginal = '{{review.score}}';
+  let editButton = document.getElementById('startEdit');
+  let doneButton = document.getElementById('doneEdit');
+  let cancelButton = document.getElementById('cancelEdit');
+
+  let editWriter = document.getElementById('editWriter');
+  let normalWriter = document.getElementById('normalWriter');
+
+  let editInput = document.querySelector('#editWriter > textarea');
+  let editStar = document.querySelector('#editWriter > #myStar');
+
+  function setEditMode(mode) {
+    if (mode) {
+      normalWriter.style.display = 'none';
+      editWriter.style.display = 'flex';
+      editStar.setAttribute('data-rating', scoreOriginal);
+      editInput.value = reviewOriginal;
+    } else {
+      editWriter.style.display = 'none';
+      normalWriter.style.display = 'flex';
+    }
+  }
+
+  editButton.addEventListener('click', () => {
+    setEditMode(true);
+  });
+  doneButton.addEventListener('click', () => {});
+  cancelButton.addEventListener('click', () => {
+    setEditMode(false);
+  });
+</script>
+<!-- 무한 스크롤링 구현 -->
+<script>
+  document.addEventListener('scroll', function (event) {
+    checkForNewDiv();
+  });
+
+  const REVIEW_CHUNK_SIZE = 3;
+
+  // 뮤비 총 댓글 수
+  let numberOfReviews = '{{video.reviews.count}}';
+
+  let currentNumberOfReviews = Math.min(REVIEW_CHUNK_SIZE, numberOfReviews);
+
+  let loading = false;
+  let error = null;
+  let loader = document.getElementById('loaderContainer');
+  let doneUI = document.getElementById('done');
+
+  function setLoading(bool) {
+    if (bool) {
+      loader.classList.remove('hidden');
+    } else {
+      loader.classList.add('hidden');
+    }
+    loading = bool;
+  }
+
+  let checkForNewDiv = function () {
+    let lastDiv = document.querySelector('#commentScroll > div:last-child');
+    let lastDivOffset = lastDiv.offsetTop + lastDiv.clientHeight;
+    let pageOffset = window.pageYOffset + window.innerHeight;
+
+    if (pageOffset > lastDivOffset + 100 && loading == false && currentNumberOfReviews < numberOfReviews) {
+      setLoading(true);
+      axios
+        .get(`{% url 'get_review_for_mv' video.id %}?count=` + currentNumberOfReviews)
+        .then((response) => {
+          setLoading(false);
+
+          let reviews = response.data;
+          currentNumberOfReviews += reviews.length;
+
+          if (currentNumberOfReviews >= numberOfReviews) {
+            doneUI.classList.add('show');
+          }
+
+          reviews.map((review) => {
+            let reviewDiv = document.createElement('div');
+            reviewDiv.className = 'review';
+            let reviewAuthor = document.createElement('div');
+            reviewAuthor.className = 'reviewAuthor';
+            reviewDiv.appendChild(reviewAuthor);
+            let profileBoxDiv = document.createElement('div');
+            profileBoxDiv.className = 'profileBox';
+            reviewAuthor.appendChild(profileBoxDiv);
+            let ratingSpan = document.createElement('span');
+            ratingSpan.className = 'rating';
+            ratingSpan.setAttribute('data-stars', '5');
+            ratingSpan.setAttribute('data-default-rating', review.score);
+            ratingSpan.setAttribute('disabled', 'disabled');
+            // 별점 렌더링을 위한 함수 적용
+            new SimpleStarRating(ratingSpan);
+            reviewAuthor.appendChild(ratingSpan);
+            let imgDiv = document.createElement('img');
+            imgDiv.src = 'https://fdn.gsmarena.com/imgroot/news/20/04/apple-music-covid-relief/-1220x526/gsmarena_001.jpg';
+            profileBoxDiv.appendChild(imgDiv);
+            let reviewAuthorNameDiv = document.createElement('div');
+            reviewAuthorNameDiv.className = 'reviewAuthorName';
+            reviewAuthorNameDiv.innerText = review.author.profile;
+            profileBoxDiv.appendChild(reviewAuthorNameDiv);
+            let reviewCommentDiv = document.createElement('div');
+            reviewCommentDiv.className = 'reviewComment';
+            reviewCommentDiv.innerText = review.text;
+            reviewDiv.appendChild(reviewCommentDiv);
+            let reviewDetailDiv = document.createElement('div');
+            reviewDetailDiv.className = 'reviewDetail';
+            let reviewDate = new Date(review.register_date);
+            reviewDetailDiv.innerText = `${reviewDate.getFullYear()}년 ${reviewDate.getMonth() + 1}월 ${reviewDate.getDate()}일`;
+            reviewDiv.appendChild(reviewDetailDiv);
+            document.getElementById('commentScroll').appendChild(reviewDiv);
+          });
+        })
+        .catch((e) => {
+          error = e;
+        });
+      checkForNewDiv();
+    }
+  };
+</script>
+{% endblock %}
+<div class="review">
+  <div class="reviewAuthor">
+    <div class="profileBox">
+      <img src="{% static 'img/pruple.png' %}" />
+      <div class="reviewAuthorName">{{review.author.profile.name}}</div>
+    </div>
+    <span class="rating" data-stars="5" data-default-rating="{{review.score}}" disabled></span>
+  </div>
+  <div class="reviewComment">{{review.text}}</div>
+  <div class="reviewDetail">{{review.register_date|date:"Y년 m월 d일"}}</div>
+</div>

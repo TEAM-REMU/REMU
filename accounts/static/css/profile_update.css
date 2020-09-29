@@ -1,19 +1,4 @@
-.logo{
-    width: 107px;
-    height: 99px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 40px;
-    cursor: pointer;
-}
-
-.logo img{
-    width: 100%;
-    height: 100%;
-}
-
-.signUpDetail{
+.profileUpdateContainer{
     padding: 4%;
     display: block;
     margin-left: auto;
@@ -29,7 +14,25 @@
 
 }
 
-input[type=text], input[type=password], input[type=email]{
+.imageContainer{
+    width: 80px;
+    height: 80px;
+    border-radius: 70%;
+    overflow: hidden;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+}
+
+.imageContainer img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+input[type=text]{
     border: none;
     outline: none;
     display: block;
