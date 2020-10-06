@@ -26,6 +26,9 @@ for i in range(1, len(data)):
             name = data[i][3],
             image_url = data[i][4]
         )
+        if(len(data[i][0]) is 0):
+            production.sns_link = data[i][2]
+            production.save()
 
 
 # DB에 감독 저장

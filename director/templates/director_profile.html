@@ -1,53 +1,110 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/directorProfile.css' %}" />
+<link rel="stylesheet" href="{% static 'css/director_profile.css' %}" />
 {% endblock %}
 
 {% block contents %}
 
-<div class="container">
-    <div class="high-container">
-        <div class ="info">
+<div class="director_container">
+    <div class="high_container">
+        <!-- <div class="info">
             <img src="https://image.flaticon.com/icons/svg/3260/3260843.svg">
-        </div>
+        </div> -->
         <div class="info">
-            BTS FILM
+            <div class="director_name">
+                {{director.name}}
+            </div>
+            {% if director.production is not None %}
+            <div class="production_name">
+                {{production_name}}
+            </div>
+            {% endif %}
         </div>
-        <div class="info">
-            이래경
+
+        <!-- 글자색 변경하기 -->
+        <div class="info_announce">
+            <span style="color: #fe8369; font-weight: bold;">{{mv_list.count}}개</span>의 작품과
+            <span style="color: #fe8369; font-weight: bold;">&nbsp{{num_reviews}}개</span>의 리뷰가 리뮤에 기록되었어요!
         </div>
-        <div class="info">
-            <span style = "color: orange; font-weight: bold;">20개</span>의 작품과 
-            <span style = "color: orange; font-weight: bold;">150개</span>의 리뷰가 리뮤에 기록되었어요!
+
+        <!-- css 먹이기 -->
+        <div class='sns_link'>
+            <div>
+                {% for sns_link in sns_links %}
+                <a href={{sns_link}}>sns</a>
+                {% endfor %}
+            </div>
         </div>
     </div>
 
-    <div class="low-container">
+    <div class="low_container">
         <div class="filter">
-            <div class="condition">
-                인기순
+            {% if 'popular_ordered_mv' in request.path %}
+            <div class="condition_click">
+                <a href="{% url 'popular_ordered_mv_of_director' director.id %}" style="padding-right: 20px;">인기순</a>
             </div>
             <div class="condition">
-                최신순
+                <a href="{% url 'latest_ordered_mv_of_director' director.id %}">최신순</a>
             </div>
-        </div>
 
-        <div class="mvResult">
+            {% elif 'latest_ordered_mv' in request.path %}
+            <div class="condition">
+                <a href="{% url 'popular_ordered_mv_of_director' director.id %}" style="padding-right: 20px;">인기순</a>
+            </div>
+            <div class="condition_click">
+                <a href="{% url 'latest_ordered_mv_of_director' director.id %}">최신순</a>
+            </div>
+            {% endif %}
+
             
-            <div class="art">
-                <img src="https://image.flaticon.com/icons/svg/889/889242.svg">
-            </div>
-            <div class="art">
-                <img src="https://image.flaticon.com/icons/svg/889/889242.svg">
-            </div>
-            <div class="art">
-                <img src="https://image.flaticon.com/icons/svg/889/889242.svg">
-            </div>
 
         </div>
-    </div>
-</div>
 
+        <div class="mv_result">
+
+            {% for mv in mv_page%}
+            <div class="mv">
+                <img src="https://img.youtube.com/vi/{{mv.video_link}}/maxresdefault.jpg" />
+                <div class="mv_detail">
+                    <span class="mv_director_info">{{mv.director.name}} 감독</span>
+                    <span class="mv_sub_info">{{mv.artist}} '{{mv.title}}'</span>
+                    <div>
+                        <img src="{% static 'img/heart.png' %}" />
+                        <span>리뷰 {{mv.reviews.all.count}}</span>
+                        <a href="{% url 'mv_detail' mv.id %}"><button>더보기</button></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="pagenator">
+            <span class="move_previous">
+                {% if mv_page.has_previous %}
+                <a href="?page=1">맨 앞으로</a>
+                <a href="?page={{mv_page.previous_page_number}}">&lt</a>
+                {% endif %}
+            </span>
+          
+            <span class="page_num">
+                <span>&nbsp{{mv_page.number}}</span>
+                <span>&nbsp/&nbsp</span>
+                <span>{{mv_page.paginator.num_pages}}&nbsp</span>
+            </span>
+    
+            <span class="move_next">
+                {% if mv_page.has_next %}
+                <a href="?page={{mv_page.next_page_number}}">&gt</a>
+                <a href="?page={{mv_page.paginator.num_pages}}">맨 뒤로</a>
+                {% endif %}
+            </span>
+        </div>
+
+
+
+    </div>
+
+</div>
 
 {% endblock %}
