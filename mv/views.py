@@ -7,7 +7,6 @@ from .models import MusicVideo
 def mvList(request):
 
     videos = MusicVideo.objects.all()
-
     return render(request, 'mvList.html', {'videos': videos})
 
 
