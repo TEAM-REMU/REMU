@@ -32,7 +32,15 @@
         <div class='sns_link'>
             <div>
                 {% for sns_link in sns_links %}
-                <a href={{sns_link}}>sns</a>
+                    {% if 'instagram' in sns_link %}
+                        <a href={{sns_link}}><img src="{% static 'img/instagram.png' %}"></a>
+                    {% elif 'facebook' in sns_link %}
+                        <a href={{sns_link}}><img src="{% static 'img/facebook.png' %}"></a>
+                    {% elif 'youtube' in sns_link %}
+                        <a href={{sns_link}}><img src="{% static 'img/youtube.png' %}"></a>
+                    {% elif 'vimeo' in sns_link %}
+                        <a href={{sns_link}}><img src="{% static 'img/vimeo.png' %}"></a>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

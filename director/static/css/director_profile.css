@@ -44,10 +44,16 @@
     padding: 20px;
 }
 
-.sns_link {
+.sns_link{
     display: flex;
     justify-content: flex-end;
 }
+
+.sns_link div a img{
+    width: 30px;
+    margin-right: 10px;
+}
+
 
 .low_container {
     display: flex;
