@@ -6,7 +6,8 @@
 
 {% block contents %}
 
-<div class = "profileUpdateContiner">
+<div class = "profileUpdateContainer">
+    <div class = "title">프로필 수정하기</div><br><br>
     <form action="{% url 'update' profile.id %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class = "imageContainer">
@@ -15,12 +16,15 @@
         {% endif %}
         </div>
 
-        <p>프로필 사진 바꾸기 : <input type="file" id="imageFile" name="image"></p>
+        <span>프로필 사진</span><input type="file" id="imageFile" name="image">
 
-        <p>닉네임 <input type="text" name="nickname" value="{{ profile.nickname }}" maxlength="10" minlength="2" required></p>
-        <div style = "color:red">{{error_0}}</div>
-        <div style = "color:red">{{error_2}}</div>
-    
+        <span>닉네임</span><input type="text" name="nickname" value="{{ profile.nickname }}" maxlength="10" minlength="2" required>
+        <div class = "error">{{error_0}}</div>
+        <div class = "error">{{error_3}}</div>
+
+        <a>비밀번호 변경</a><input type="password" name="password" value="{{ profile.password }}" required>
+        <p>비밀번호 재입력</p><input type="password" name="re_password" value="{{ profile.re_password }}" required>
+        <div class = "error">{{error_2}}</div>
         <a href="{% url 'my_page' profile.id %}"><button type="submit">수정하기</button></a>
     </form>
 </div>

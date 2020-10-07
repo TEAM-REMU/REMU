@@ -3,15 +3,24 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 30px;
+    margin-bottom: 70px;
     background-color: white;
     border-radius: 15px;
-    height: 300px;
+    height: 400px;
     width: 750px;
     box-shadow: 5px 5px 20px -10px rgba(0, 0, 0, 0.363);
-    padding-top: 70px;
+    padding-top: 50px;
     padding-bottom: 150px;
+}
 
+.profileUpdateContainer span{
+    text-align: center;
+}
+
+.title{
+    text-align: center;
+    color:orange;
+    font-size: 20px;
 }
 
 .imageContainer{
@@ -31,8 +40,13 @@
     object-fit: cover;
 }
 
+.error{
+    text-align: center;
+    color:red;
+    font-size: 15px;
+}
 
-input[type=text]{
+input[type=text],input[type=password]{
     border: none;
     outline: none;
     display: block;

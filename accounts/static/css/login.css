@@ -29,7 +29,13 @@
 
 }
 
-input[type=text], input[type=password], input[type=file]{
+.error{
+    text-align: center;
+    color:red;
+    font-size: 15px;
+}
+
+input[type=text], input[type=password]{
     border: none;
     outline: none;
     display: block;

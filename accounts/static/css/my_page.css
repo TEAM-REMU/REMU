@@ -33,18 +33,23 @@
 }
 
 .myMvListContainer{
-    height: 700px;
+    height: 720px;
     background-color: rgba(0,0,0,0.1);
     border-radius: 15px;
     margin-bottom: 30px;
+    padding:1em;
+}
+
+.ticketContainer{
+    
 }
 
 .bar{
     height: 15px;
-    width: 800px;
+    width: px;
     background-color: rgba(255, 165, 0, 0.5);
-    margin: 0 auto;
     box-shadow: 5px 5px 20px -10px rgba(0, 0, 0, 0.363);
+    margin-top: 125px;
 }
 
 .mvTicket{
@@ -60,4 +65,10 @@
     margin: 0 10px;
     margin-left: 2%;
     text-align: left;
+}
+
+.pagination{
+    text-align: center;
+    padding-bottom: 30px;
+    color: orange;
 }

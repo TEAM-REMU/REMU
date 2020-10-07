@@ -10,38 +10,43 @@
         <img src = {{user.image}}>
     </div>
     <p>
-        <span>{{user.nickname}}</span>님, <span>12개</span>의 MV를 아카이빙하셨군요!
+        <span>{{user.nickname}}</span>님, <span>{{review_cnt}}개</span>의 MV를 아카이빙하셨군요!
     </p>
 </div>
 
-    <div class = "myMvListContainer">
-        <div class = "mvTicket">
-                <img src = "{% static 'img/mv_pic.png' %}">
-                <img src = "{% static 'img/mv_pic.png' %}">
-                <img src = "{% static 'img/mv_pic.png' %}">
-                <img src = "{% static 'img/mv_pic.png' %}">
-                <img src = "{% static 'img/mv_pic.png' %}">
+<div class = "myMvListContainer">
+    <div class = "mvTicket">
+        {{ review_list }}
+        {% for i in "x"|rjust:review_cnt %}
+        <div class = "ticketContainer">
+            <img src = "{% static 'img/ticket/티켓.png' %}">
         </div>
-        <div class = "bar">
-        </div>
-    </div>    
-
-    <div class="pagination">
-        {% if review.has_previous %}
-        <a href = "?page={{review.previous_page_number}}"><i class = fas fa-arrow-left></i>이전 페이지</a>
-        {% endif %}
-        
-        {% for i in review_list %}
-            {% if review.number == i %}
-                <span class="active">{{ i }} <span class = "sr-only">(current)</span></span>
-            {% else %}
-                <span><a href="?page={{ i }}">{{ i }} </a></span>
-            {% endif %}
         {% endfor %}
-
-        {% if review.has_next %}
-            <a href="?page={{review.next_page_number}}">다음 페이지 <i class = "fas fa-arrow-right"></i></a>
-        {% endif %}
     </div>
+
+    <div class = "bar">
+    </div>
+    <div class = "bar">
+    </div>
+    <div class = "bar">
+    </div>
+    <div class = "bar">
+    </div>
+    <div class = "bar">
+    </div>
+</div>    
+
+<div class="pagination">
+    {% if reviews.has_previous %}
+        <a href = "?page={{reviews.number|add:-1}}"><i class = "fas fa-arrow-left"></i>이전 페이지</a>
+    {% endif %}
+        
+
+    <  {{ reviews.number }} / {{reviews.paginator.num_pages}}  >
+
+    {% if reviews.has_next %}
+        <a href="?page={{reviews.number|add:+1}}">다음 페이지 <i class = "fas fa-arrow-right"></i></a>
+    {% endif %}
+</div>
 
 {% endblock %}

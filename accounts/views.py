@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import Profile, Review
 
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import Paginator, PageNotAnInteger
 
 # Create your views here.
 
@@ -27,7 +27,6 @@ def logout(request):
     return redirect('home')
 
 def signup(request):
-
     if request.method == "POST":
         # 아이디 글자수 제한(2-10자)
         username_len = len(request.POST['username'])
@@ -39,6 +38,10 @@ def signup(request):
         if len(signuped_username) >= 1:
             return render(request, 'signup.html', {'error_1': '존재하는 아이디입니다'})
 
+        # 비밀번호 재입력 일치 여부 확인
+        if request.POST['password'] != request.POST['re_password']:
+            return render(request, 'signup.html', {'error_2': '비밀번호와 비밀번호 재입력이 일치하지 않습니다'})
+
         # 닉네임 글자수 제한(2-10자)
         nickname_len = len(request.POST['nickname'])
         if nickname_len > 10 or nickname_len < 2:
@@ -47,37 +50,44 @@ def signup(request):
         # 닉네임 중복 검사
         signuped_user_profile = Profile.objects.filter(nickname=request.POST["nickname"])
         if len(signuped_user_profile) >= 1:
-            return render(request, 'signup.html', {'error_2': '존재하는 닉네임입니다'})
+            return render(request, 'signup.html', {'error_3': '존재하는 닉네임입니다'})
 
-        # 비밀번호 재입력 일치 여부 확인 & 유저 profile 생성
-        if request.POST["password"] == request.POST["re_password"]:
-            user = User.objects.create_user(
-                username = request.POST['username'], password = request.POST['password'], email = request.POST['email'])
-            profile = Profile()
-            profile.user = user
-            profile.nickname = request.POST["nickname"]
+        # 유저 프로필 생성
+        profile = Profile()
+        user = User.objects.create_user(
+            username = request.POST['username'], password = request.POST['password'], email = request.POST['email']
+        )
+        profile.user = user
+        profile.nickname = request.POST["nickname"]
+        
+        # 프로필 사진 확인
+        if 'image' in request.FILES:
             profile.image = request.FILES['image']
-            profile.save()
-            auth.login(request, user)
-            return redirect('home')
+        
+        profile.save()
+        auth.login(request, user)
+        return redirect('home')
+    else:
         return render(request, 'signup.html')
-
-    return render(request, 'signup.html')
 
 def my_page(request, id):
     user = Profile.objects.get(pk=id)
 
-    review = Review.objects.all()
-    page = request.GET.get('page', 1)
-    paginator = Paginator(review, 25)
-    review_list = paginator.page_range
 
-    return render(request, 'my_page.html', {'user':user, 'review':review, 'review_list':review_list})
+    review_list = Review.objects.all()
+
+    review_cnt = len(review_list)
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(review_list, 2)
+    reviews = paginator.get_page(page)
+
+    return render(request, 'my_page.html', {'user':user, 'reviews':reviews, 'review_cnt':review_cnt, 'review_list':review_list})
 
 
 def update(request, id):
     profile = get_object_or_404(Profile, pk = id)
-
+   
     if request.method == 'POST':
         # 프로필 사진 변경
         if 'image' in request.FILES:
@@ -86,7 +96,7 @@ def update(request, id):
         # 닉네임 글자수 제한
         nickname_len = len(request.POST['nickname'])
         if nickname_len > 10 or nickname_len < 2:
-            return render(request, 'signup.html', {'error_0': '글자수가 2이상 10이하여야 합니다.'})
+            return render(request, 'profile_update.html', {'error_0': '글자수가 2이상 10이하여야 합니다.'})
 
         # 닉네임 중복 검사
         profile.newnickname = request.POST['nickname']
@@ -94,14 +104,18 @@ def update(request, id):
 
         if len(signuped_user_profile) >= 1:
             if profile.nickname != profile.newnickname:
-                return render(request, 'profile_update.html', {'profile':profile, 'error_2': '존재하는 닉네임입니다'})
+                return render(request, 'profile_update.html', {'profile':profile, 'error_3': '존재하는 닉네임입니다'})
             profile.nickname = profile.newnickname
-            profile.save()
-            return redirect('my_page', profile.id)
 
-        profile.nickname = profile.newnickname
+        # 비밀번호 중복 검사
+        profile.password = request.POST['password']
+        profile.re_password = request.POST['re_password']
+        
+        if profile.password != profile.re_password:
+            return render(request, 'profile_update.html', {'profile':profile, 'error_2': '비밀번호와 비밀번호 확인이 일치하지 않습니다'})
+        
         profile.save()
         return redirect('my_page', profile.id)
-
+    
     else:
-        return render(request, 'profile_update.html', {'profile' : profile})
+        return render(request, 'profile_update.html',{'profile':profile})
