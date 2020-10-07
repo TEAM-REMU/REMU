@@ -4,7 +4,8 @@
 <div id="mvDetailContainer">
   <div class="videoDetail">
     <div id="videoContainer">
-      <iframe id="video" src="//www.youtube.com/embed/{{video.video_link}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe id="video" src="//www.youtube.com/embed/{{video.video_link}}" frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <h1 class="videoInformation">{{video.title}}</h1>
     <div class="videoInformation directorDetail">
@@ -35,17 +36,21 @@
       </a>
     </div>
   </div>
-  <!--  수정용  -->
-  <form class="commentWriter" method="POST" action="{% url 'edit_review' review.id %}" id="editWriter" style="display: none">
-    {% csrf_token %}
-    <span id="editStar" class="rating big" data-stars="5" data-default-rating="{{review.score}}"></span>
-    <textarea rows="8" name="text">{{review.text}}</textarea>
-    <input name="score" type="hidden" id="editScore" value="{{review.score}}" />
-    <div class="buttonContainer">
-      <button type="submit" style="margin-right: 15px" id="doneEdit">수정 완료</button>
-      <button type="button" id="cancelEdit">수정 취소</button>
+  <div id="myModal" class="modal fadein">
+    <div class="modal-content">
+      <form class="commentWriter" method="POST" action="{% url 'edit_review' review.id %}" id="editWriter">
+        {% csrf_token %}
+        <span id="editStar" class="rating big" data-stars="5" data-default-rating="{{review.score}}"></span>
+        <textarea rows="8" name="text">{{review.text}}</textarea>
+        <input name="score" type="hidden" id="editScore" value="{{review.score}}" />
+        <div class="buttonContainer">
+          <button type="submit" style="margin-right: 15px" id="doneEdit">수정 완료</button>
+          <button type="button" id="cancelEdit">수정 취소</button>
+        </div>
+      </form>
     </div>
-  </form>
+  </div>
+
   <!-- 작성한 리뷰가 존재하지 않는다면 -->
   {% else %}
   <form class="commentWriter" method="POST" action="{% url 'create_review' video.id %}">
@@ -123,17 +128,20 @@
   let normalWriter = document.getElementById('normalWriter');
 
   let editInput = document.querySelector('#editWriter > textarea');
-  let editStar = document.querySelector('#editWriter > #myStar');
+  let editStar = document.querySelector('#editWriter > #editStar');
+
+  var modal = document.getElementById('myModal');
 
   function setEditMode(mode) {
     if (mode) {
-      normalWriter.style.display = 'none';
-      editWriter.style.display = 'flex';
+      // normalWriter.style.display = 'none';
+      // editWriter.style.display = 'flex';
       editStar.setAttribute('data-rating', scoreOriginal);
       editInput.value = reviewOriginal;
+      modal.style.display = "block";
     } else {
-      editWriter.style.display = 'none';
-      normalWriter.style.display = 'flex';
+      // editWriter.style.display = 'none';
+      // normalWriter.style.display = 'flex';
     }
   }
 
@@ -143,6 +151,7 @@
   doneButton.addEventListener('click', () => {});
   cancelButton.addEventListener('click', () => {
     setEditMode(false);
+    modal.style.display = "none";
   });
 </script>
 <!-- 무한 스크롤링 구현 -->
@@ -209,7 +218,8 @@
             new SimpleStarRating(ratingSpan);
             reviewAuthor.appendChild(ratingSpan);
             let imgDiv = document.createElement('img');
-            imgDiv.src = 'https://fdn.gsmarena.com/imgroot/news/20/04/apple-music-covid-relief/-1220x526/gsmarena_001.jpg';
+            imgDiv.src =
+              'https://fdn.gsmarena.com/imgroot/news/20/04/apple-music-covid-relief/-1220x526/gsmarena_001.jpg';
             profileBoxDiv.appendChild(imgDiv);
             let reviewAuthorNameDiv = document.createElement('div');
             reviewAuthorNameDiv.className = 'reviewAuthorName';
@@ -222,7 +232,8 @@
             let reviewDetailDiv = document.createElement('div');
             reviewDetailDiv.className = 'reviewDetail';
             let reviewDate = new Date(review.register_date);
-            reviewDetailDiv.innerText = `${reviewDate.getFullYear()}년 ${reviewDate.getMonth() + 1}월 ${reviewDate.getDate()}일`;
+            reviewDetailDiv.innerText =
+              `${reviewDate.getFullYear()}년 ${reviewDate.getMonth() + 1}월 ${reviewDate.getDate()}일`;
             reviewDiv.appendChild(reviewDetailDiv);
             document.getElementById('commentScroll').appendChild(reviewDiv);
           });
@@ -233,6 +244,28 @@
       checkForNewDiv();
     }
   };
+</script>
+<script>
+  // Get the modal
+  var modal = document.getElementById('myModal');
+
+  // Get the button that opens the modal
+  // var btn = document.getElementById("startEdit");
+
+  // When the user clicks on the button, open the modal 
+  // btn.onclick = function () {}
+
+  // When the user clicks on <span> (x), close the modal
+  // span.onclick = function () {
+  //   modal.style.display = "none";
+  // }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 </script>
 {% endblock %}
 <div class="review">

@@ -140,7 +140,7 @@
   color: #7a7a7a;
 }
 
-.review + .review {
+.review+.review {
   margin-top: 20px;
 }
 
@@ -225,34 +225,41 @@
   -webkit-animation: loader-4-1 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
   animation: loader-4-1 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
 }
+
 @-webkit-keyframes loader-4-1 {
   0% {
     -webkit-transform: scale(0);
     opacity: 0;
   }
+
   50% {
     -webkit-transform: scale(1);
     opacity: 1;
   }
+
   100% {
     -webkit-transform: scale(0);
     opacity: 0;
   }
 }
+
 @keyframes loader-4-1 {
   0% {
     transform: scale(0);
     opacity: 0;
   }
+
   50% {
     transform: scale(1);
     opacity: 1;
   }
+
   100% {
     transform: scale(0);
     opacity: 0;
   }
 }
+
 .loader-4 span {
   display: block;
   position: absolute;
@@ -266,28 +273,35 @@
   -webkit-animation: loader-4-2 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
   animation: loader-4-2 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
 }
+
 @-webkit-keyframes loader-4-2 {
   0% {
     -webkit-transform: rotate(0deg);
   }
+
   50% {
     -webkit-transform: rotate(180deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
   }
 }
+
 @keyframes loader-4-2 {
   0% {
     transform: rotate(0deg);
   }
+
   50% {
     transform: rotate(180deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
 }
+
 .loader-4 span::before,
 .loader-4 span::after {
   content: '';
@@ -305,50 +319,63 @@
   -webkit-animation: loader-4-3 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
   animation: loader-4-3 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
 }
+
 @-webkit-keyframes loader-4-3 {
   0% {
     -webkit-transform: translate3d(0, 0, 0) scale(1);
   }
+
   50% {
     -webkit-transform: translate3d(-16px, 0, 0) scale(0.5);
   }
+
   100% {
     -webkit-transform: translate3d(0, 0, 0) scale(1);
   }
 }
+
 @keyframes loader-4-3 {
   0% {
     transform: translate3d(0, 0, 0) scale(1);
   }
+
   50% {
     transform: translate3d(-16px, 0, 0) scale(0.5);
   }
+
   100% {
     transform: translate3d(0, 0, 0) scale(1);
   }
 }
+
 .loader-4 span::after {
   -webkit-animation: loader-4-4 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
   animation: loader-4-4 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
 }
+
 @-webkit-keyframes loader-4-4 {
   0% {
     -webkit-transform: translate3d(0, 0, 0) scale(1);
   }
+
   50% {
     -webkit-transform: translate3d(16px, 0, 0) scale(0.5);
   }
+
   100% {
     -webkit-transform: translate3d(0, 0, 0) scale(1);
   }
 }
+
 @keyframes loader-4-4 {
   0% {
     transform: translate3d(0, 0, 0) scale(1);
   }
+
   50% {
     transform: translate3d(16px, 0, 0) scale(0.5);
   }
+
   100% {
     transform: translate3d(0, 0, 0) scale(1);
   }
@@ -360,6 +387,114 @@
   text-align: center;
   color: #fe8369;
 }
+
 #done.show {
   display: block;
 }
+
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.fadein {
+  animation: fadein 0.5s;
+  -moz-animation: fadein 0.5s;
+  /* Firefox */
+  -webkit-animation: fadein 0.5s;
+  /* Safari and Chrome */
+  -o-animation: fadein 0.5s;
+  /* Opera */
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadein {
+
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadein {
+
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes fadein {
+
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+Colored
