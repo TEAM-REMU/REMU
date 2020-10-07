@@ -14,12 +14,8 @@ from django.db.models import Avg
 def mv_list(request):
 
     videos = MusicVideo.objects.all()
-<<<<<<< HEAD
-    return render(request, 'mvList.html', {'videos': videos})
-=======
 
     return render(request, 'mv_list.html', {'videos': videos})
->>>>>>> d4d16c5cb78c5af8ee440b2499b449ac94455174
 
 
 def mv_detail(request, id):

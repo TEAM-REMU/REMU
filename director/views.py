@@ -10,9 +10,6 @@ def director_list(request):
     return render(request, 'director_list.html')
 
 def director_profile(request, id):
-<<<<<<< HEAD
-    return render(request, 'director_profile.html')
-=======
     director = Director.objects.get(pk=id)      
     mv_list = MusicVideo.objects.filter(director = director)
     if(request.path.split('/')[-1] == 'popular_ordered_mv'):
@@ -110,4 +107,3 @@ def production_profile(request, id):
 #     elif(request.path.split('/')[-1] == 'latest_ordered_mv'):
 #         latest_ordered_mv_list = mv_list.order_by('-upload_date')
 #         return render(request, 'director_profile.html', {'latest_ordered_mv':latest_ordered_mv_list})
->>>>>>> d4d16c5cb78c5af8ee440b2499b449ac94455174
