@@ -15,14 +15,23 @@ def count_reviews(directors):
 
 def result(request):
     search = request.GET.get("search", "")
+    order = request.GET.get("order", "popular")
+
     # 제목 일치 뮤비
-    mv_from_title = MusicVideo.objects.filter(title__contains=search)
+    mv_from_title = MusicVideo.objects.filter(
+        title__contains=search).annotate(num_reviews=Count('reviews'))
     # 가수 일치 뮤비
-    mv_from_artist = MusicVideo.objects.filter(artist__contains=search)
+    mv_from_artist = MusicVideo.objects.filter(
+        artist__contains=search).annotate(num_reviews=Count('reviews'))
     # 두개 합침
     mv = mv_from_artist.union(mv_from_title)
 
-    # 감독 이름 일치
+    if order is 'new':
+        mv = mv.order_by('-register_date')
+    else:
+        mv = mv.order_by('-num_reviews')
+
+        # 감독 이름 일치
     director_from_director_name = Director.objects.filter(
         name__contains=search)
 
@@ -52,6 +61,11 @@ def result(request):
         my_director['count'] = count
         director_list.append(my_director)
 
+    if order is 'new':
+        director_list.sort(key=(lambda x: x['register_date']), reverse=True)
+    else:
+        director_list.sort(key=(lambda x: x['count']), reverse=True)
+
     production = production_from_production_name
 
     production_list = []
@@ -59,11 +73,16 @@ def result(request):
     for p in production:
         musicvideos = MusicVideo.objects.filter(production=p)
         count = 0
-        my_director = p.__dict__
+        mv_production = p.__dict__
         for mv in musicvideos:
             count += mv.reviews.count()
-        my_director['count'] = count
-        director_list.append(my_director)
+        mv_production['count'] = count
+        production_list.append(mv_production)
+
+    if order is 'new':
+        production_list.sort(key=(lambda x: x['register_date']), reverse=True)
+    else:
+        production_list.sort(key=(lambda x: x['count']), reverse=True)
 
     print('속한 감독 없는 프로덕션', production_from_production_name)
     print('프로덕션에 속한 감독', director_from_production)
