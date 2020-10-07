@@ -5,14 +5,6 @@ from django.db.models import Count
 # Create your views here.
 
 
-def count_reviews(directors):
-    musicvideos = MusicVideo.objects.filter(director=d)
-    for mv in musicvideos:
-        print(mv.reviews.count())
-    directors['a'] = 'asdfdsf'
-    return directors
-
-
 def result(request):
     search = request.GET.get("search", "")
     order = request.GET.get("order", "popular")
