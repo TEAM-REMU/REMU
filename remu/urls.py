@@ -26,5 +26,5 @@ urlpatterns = [
     path('404', views.errorPage, name="404"),
     path('mv/', include('mv.urls')),
     path('accounts/', include('accounts.urls')),
-    path('director/', include('director.urls'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', include('director.urls'))
+]

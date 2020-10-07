@@ -47,7 +47,6 @@
     display: flex;
     justify-content: flex-end;
     padding: 30px 100px;
-    padding: 10;
 }
 
 .condition:nth-child(1){
@@ -60,9 +59,4 @@
     display: flex;
     justify-content: space-around;
     padding: 0 50px;
-}
-
-.mvResult img{
-    width: 150px;
-    shadow
 }

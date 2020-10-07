@@ -5,7 +5,192 @@
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 {% endblock %}
 
-{% block contents %}
+<!-- {% block contents %}
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .container1 {
+        display: flex;
+        flex-direction: column;
+        width: 57vw;
+        height: 300px;
+        background-color: #FFCD7D;
+        color: white;
+        font-size: 40px;
+        line-height: 50px;
+        padding: 10px;
+        border-radius: 1em;
+        margin-bottom: 50px;
+        -webkit-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        -moz-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    }
+
+    .introtext {
+        width: 50vw;
+        text-align: center;
+    }
+
+    .container2 {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border-radius: 1em;
+        -webkit-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        -moz-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        margin-bottom: 50px;
+        height: 450px;
+        padding: 50px;
+        width: 57vw;
+    }
+
+    .block2 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .line1 {
+        display: flex;
+        flex-direction: row;
+        padding: 20px;
+    }
+
+    .line2 {
+        display: flex;
+        flex-direction: row;
+        padding: 20px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        margin: 15px;
+    }
+
+    .block0 {
+        display: flex;
+    }
+
+
+    .container3 {
+        background-color: white;
+        border-radius: 1em;
+        -webkit-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        -moz-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        margin-bottom: 50px;
+        padding: 50px;
+        width: 57vw;
+    }
+
+    .block3 {
+        background-color: #FE8369;
+        color: white;
+        padding: 30px;
+        border-radius: 1em;
+        -webkit-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        -moz-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    }
+
+    input {
+        width: 45vw;
+        border: none;
+        border-radius: 20px;
+        height: 45px;
+        padding-left: 50px;
+        margin-top: 40px;
+        -webkit-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        -moz-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    .search_button {
+        border: none;
+        padding: 12px;
+        color: white;
+        background-color: #FE8369;
+        border-radius: 10px;
+        -webkit-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        -moz-box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+        box-shadow: 10px 10px 18px -12px rgba(0, 0, 0, 0.26);
+    }
+
+    .profile {
+        background: white;
+        border: none;
+        color: #FE8369;
+        padding: 10px;
+        font-weight: bold;
+    }
+
+    .profile:focus {
+        outline: none;
+    }
+
+    .profile:hover {
+        background: #FFCD7D;
+        color: white;
+    }
+
+    /* 색상 임시로 정해둠 */
+
+    .hashtag {
+        margin-bottom: 15px;
+    }
+
+    .tag {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .textbox {
+        background: #FFCD7D;
+        height: 315px;
+        margin: 30px;
+    }
+
+    .review4 {
+        background: #0E1921;
+        color: white;
+        border: none;
+        padding: 10px;
+        position: absolute;
+        float: right;
+        margin-left: 250px;
+
+    }
+
+    .mvreview {
+        display: flex;
+    }
+
+    .review1 {
+        font-size: 29px;
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .review2 {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .review3 {
+        padding: 20px;
+        margin: 20px;
+    } -->
+</style> 
+
 <div class="container">
 
     <div class="container1">
@@ -22,6 +207,9 @@
 
     <div class="container2">
         <div class="block1">
+            <!-- 여기보여주기 -->
+            <h4 style="color: red">{{ mv1 }}</h4>
+            <h4 style="color: blue">{{ mv2 }}</h4>
             <span>대만 첫사랑 영화를 닮은 섬세한 감성, </span>
             <span style="color: #FE8369; font-weight: bold;">이래경 감독</span>
             <span>의 작품을 소개합니다.</span>
@@ -106,5 +294,106 @@
             </div>
         </div>
     </div>
+
+    <div class="box">
+        <div class="boxclass">
+            <span>세상에 이게 다</span>
+            <span style="color: #FE8369; font-weight: bold;">룸펜스</span>
+            <span>감독이 만든 뮤비</span>
+        </div>
+        <div class="lumpense1">
+            <div class="mv">
+                <img width="240" src="https://i.ytimg.com/vi/ur0hCdne2-s/maxresdefault.jpg" />
+                <br />
+                <span>선미 - 가시나</span>
+            </div>
+            <div class="mv">
+                <img width="240" src="https://i.ytimg.com/vi/gdZLi9oWNZg/maxresdefault.jpg" />
+                <br />
+                <span>방탄소년단(BTS) - Dynamite</span>
+            </div>
+            <div class="mv">
+                <img width="240" src="https://i.ytimg.com/vi/xEeFrLSkMm8/maxresdefault.jpg" />
+                <br />
+                <span>방탄소년단(BTS) - 봄날</span>
+            </div>
+            <div class="mv">
+                <img width="240" src="https://i.ytimg.com/vi/42Gtm4-Ax2U/maxresdefault.jpg" />
+                <br />
+                <span>아이유 - 스물셋</span>
+            </div>
+        </div>
+        <div>
+            <button class="button1">또 다른 MV 보러가기</button>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="boxclass">
+            <span>이 뮤비, 모두</span>
+            <span style="color: #FE8369; font-weight: bold;">리전드필름</span>
+            <span>의 작품이었던 것 알고계셨나요?</span>
+        </div>
+        <div class="lumpense1">
+            <div class="mv">
+                <img width="240" src="https://i.ytimg.com/vi/ap14O5-G7UA/maxresdefault.jpg" />
+                <br />
+                <span>세븐틴 - 독</span>
+            </div>
+            <div class="mv">
+                <img width="240" src="https://i.ytimg.com/vi/eDEFolvLn0A/maxresdefault.jpg" />
+                <br />
+                <span>아이즈원 - 피에스타</span>
+            </div>
+            <div class="mv">
+                <img width="240" src="https://i.ytimg.com/vi/om3n2ni8luE/maxresdefault.jpg" />
+                <br />
+                <span>(여자)아이들 - Oh My God</span>
+            </div>
+            <div class="mv">
+                <img width="240" src="https://i.ytimg.com/vi/YPFIh0dfYfw/maxresdefault.jpg" />
+                <br />
+                <span>청하 - Stay Tonight</span>
+            </div>
+        </div>
+        <div>
+            <button class="button1">또 다른 MV 보러가기</button>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="boxclass">
+            <span>이 뮤비를 만든</span>
+            <span style="color: #FE8369; font-weight: bold;">황수아</span>
+            <span>감독의 작품이 궁금하다면?</span>
+        </div>
+        <div class="lumpense1">
+            <div class="mv">
+                <img width="240" src="https://i.ytimg.com/vi/K64mb5KUhhs/maxresdefault.jpg" />
+                <br />
+                <span>가인 - 피어나</span>
+            </div>
+            <div class="mv">
+                <img width="240" src="https://i.ytimg.com/vi/WfYgbFBFe1E/maxresdefault.jpg" />
+                <br />
+                <span>수지, 백현 - Dream</span>
+            </div>
+            <div class="mv">
+                <img width="240" src="https://i.ytimg.com/vi/js3PTlQFakk/maxresdefault.jpg" />
+                <br />
+                <span>아이유 - 분홍신</span>
+            </div>
+            <div class="mv">
+                <img width="240" src="https://i.ytimg.com/vi/R3Fwdnij49o/maxresdefault.jpg" />
+                <br />
+                <span>아이유 - 시간의 바깥</span>
+            </div>
+        </div>
+        <div>
+            <button class="button1">또 다른 MV 보러가기</button>
+        </div>
+    </div>
+
+
 </div>
 {% endblock %}
