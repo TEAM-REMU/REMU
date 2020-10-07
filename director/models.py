@@ -12,7 +12,7 @@ class Production(models.Model):
     register_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.id
+        return self.name
 
 
 class Director(models.Model):

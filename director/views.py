@@ -18,7 +18,7 @@ def director_profile(request, id):
         page = request.GET.get('page')
         mv_page = paginator.get_page(page)
         num_reviews = 0
-        for mv in mv_page:
+        for mv in mv_list:
             num_reviews += mv.reviews.count()
         sns_links = director.sns_link.split(',')
         if(director.production is not None):
@@ -34,7 +34,7 @@ def director_profile(request, id):
         page = request.GET.get('page')
         mv_page = paginator.get_page(page)
         num_reviews = 0
-        for mv in mv_page:
+        for mv in mv_list:
             num_reviews += mv.reviews.count()
         sns_links = director.sns_link.split(',')
         if(director.production is not None):
@@ -57,7 +57,7 @@ def production_profile(request, id):
         page = request.GET.get('page')
         mv_page = paginator.get_page(page)
         num_reviews = 0
-        for mv in mv_page:
+        for mv in mv_list:
             num_reviews += mv.reviews.count()
         sns_links = production.sns_link.split(',')
         return render(request, 'production_profile.html', {'production':production, 'mv_list':popular_ordered_mv_list, 'mv_page':mv_page, 
@@ -69,7 +69,7 @@ def production_profile(request, id):
         page = request.GET.get('page')
         mv_page = paginator.get_page(page)
         num_reviews = 0
-        for mv in mv_page:
+        for mv in mv_list:
             num_reviews += mv.reviews.count()
         sns_links = production.sns_link.split(',')
         return render(request, 'production_profile.html', {'production':production, 'mv_list':latest_ordered_mv_list, 'mv_page':mv_page, 
