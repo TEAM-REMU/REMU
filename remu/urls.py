@@ -26,5 +26,6 @@ urlpatterns = [
     path('404', views.errorPage, name="404"),
     path('mv/', include('mv.urls')),
     path('accounts/', include('accounts.urls')),
-    path('', include('director.urls'))
+    path('', include('director.urls')),
+    path('search/', include('search.urls')),
 ]
