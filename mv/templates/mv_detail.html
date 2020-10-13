@@ -8,8 +8,13 @@
     </div>
     <h1 class="videoInformation">{{video.title}}</h1>
     <div class="videoInformation directorDetail">
+      {% if video.director %}
       <span>{{video.director.name}} 감독</span>
-      <a><button>감독 프로필 확인하기</button></a>
+      <a href="{% url 'popular_ordered_mv_of_director' video.director.id %}"><button>감독 프로필 확인하기</button></a>
+      {% elif video.production %}
+      <span>{{video.production.name}}</span>
+      <a href="{% url 'popular_ordered_mv_of_production' video.production.id %}"><button>프로필 확인하기</button></a>
+      {% endif %}
     </div>
     <div class="videoInformation">아티스트 : {{video.artist}}</div>
     <div class="videoInformation">업로드 날짜 : {{video.upload_date|date:"Y년 m월 d일"}}</div>
