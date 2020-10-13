@@ -11,9 +11,12 @@ class UserSerializer(serializers.ModelSerializer):
     profile = serializers.CharField(
         source='profile.name', read_only=True)
 
+    image = serializers.ImageField(
+        source='profile.image', read_only=True, use_url=True)
+
     class Meta:
         model = User
-        fields = ['profile']
+        fields = ['profile', 'image']
 
 
 class ReviewSerializer(serializers.ModelSerializer):
