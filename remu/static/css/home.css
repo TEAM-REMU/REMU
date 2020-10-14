@@ -140,6 +140,7 @@ input:focus {
     color: #FE8369;
     padding: 10px;
     font-weight: bold;
+    font-size: 12px;
 }
 
 .profile:focus {
