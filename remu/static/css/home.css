@@ -110,7 +110,7 @@
 input {
     width: 45vw;
     border: none;
-    border-radius: 20px;
+    border-radius: 12px;
     height: 45px;
     padding-left: 50px;
     margin-top: 40px;
@@ -180,6 +180,17 @@ input:focus {
     margin-bottom: 10px;
 }
 
+.review4:hover {
+    background: white;
+    color: black;
+    border: none;
+    padding: 10px;
+    position: absolute;
+    float: right;
+    margin-left: 8vw;
+    margin-bottom: 10px;
+}
+
 .mvreview {
     display: flex;
 }
@@ -227,6 +238,19 @@ input:focus {
     border: none;
     color: white;
     background-color: #FE8369;
+    border-radius: 8px;
+    position: absolute;
+    float: right;
+    margin: 0 auto;
+    height: 25px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.button1:hover {
+    border: none;
+    color: white;
+    background-color: #FFCD7D;
     border-radius: 8px;
     position: absolute;
     float: right;
