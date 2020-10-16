@@ -32,7 +32,7 @@ def mv_detail(request, id):
             return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews, 'score': score})
         else:
             try:
-                review = Review.objects.get(author=request.user.id)
+                review = Review.objects.filter(video=video.id).get(author=request.user.id)
                 return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews, 'score': score, 'review': review})
             except Review.DoesNotExist:
                 return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews, 'score': score})
