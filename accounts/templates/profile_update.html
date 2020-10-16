@@ -15,16 +15,24 @@
             <img src = {{profile.image.url}}>
         {% endif %}
         </div>
-
-        <span>프로필 사진</span><input type="file" id="imageFile" name="image">
-
-        <span>닉네임</span><input type="text" name="nickname" value="{{ profile.nickname }}" maxlength="10" minlength="2" required>
+        
+        <div class = "profileImageContainer">
+            프로필 사진<input type="file" id="imageFile" name="image">
+        </div>
+        
+        <div class = "nicknameContainer">
+            닉네임<input type="text" name="nickname" value="{{ profile.nickname }}" maxlength="10" minlength="2" required>
+        </div>
         <div class = "error">{{error_0}}</div>
         <div class = "error">{{error_3}}</div>
-
-        <a>비밀번호 변경</a><input type="password" name="password" value="{{ profile.password }}" required>
-        <p>비밀번호 재입력</p><input type="password" name="re_password" value="{{ profile.re_password }}" required>
+        
+        <div class = "passwordContainer">
+            비밀번호 변경<input type="password" name="password" value="{{ profile.password }}" required>
+            <br>
+            비밀번호 확인<input type="password" name="re_password" value="{{ profile.re_password }}" required>
+        </div>
         <div class = "error">{{error_2}}</div>
+
         <a href="{% url 'my_page' profile.id %}"><button type="submit">수정하기</button></a>
     </form>
 </div>

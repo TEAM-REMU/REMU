@@ -1,90 +1,84 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/star.css' %}" />
+    {% block head %} {% endblock %}
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/star.css' %}" />
-  {% block head %} {% endblock %}
-</head>
-
-<body>
-  <div id="topHeader">
-    <span>
-      만나서 반가워요! 리뮤에서 당신의 MV 리뷰를 공유해주세요 :)
-    </span>
-  </div>
-  <div id="container">
-    <header>
-      <img src="{% static 'img/REMU_LOGO.png' %}" />
-      <div>
-        {% if request.get_full_path != "/" %}
-        <div class="searchBar">
-          <input placeholder="MV /  감독 / 아티스트를 검색하세요." />
-          <img src="{% static 'img/search_icon.png' %}" />
-        </div>
-        {% endif %}
-        <ul>
-          <li>로그인</li>
-          <li class="orange">회원가입</li>
-          <li class="orange">마이페이지</li>
-          <li class="orange">감독별 검색</li>
-        </ul>
-      </div>
-    </header>
-    {% block contents %} {% endblock %}
-  </div>
-  <footer>
-    <div class="footerContainer">
-      <div class="footerContents">
-        <div>About us</div>
-        <ul class="footerTextList">
-          <li>
-            중앙대학교 멋쟁이사자처럼 TEAM REMU
-          </li>
-          <li>
-            문의 : REMU@likelion.org
-          </li>
-          <li>
-            © 2020 리뮤 All rights reserved.
-          </li>
-        </ul>
-      </div>
-      <div class="footerContents">
-        <div>Feedback</div>
-        <ul class="footerTextList">
-          <li>
-            리뮤 사용 중 불편한 점이 있으신가요?
-          </li>
-          <li>
-            '피드백 보내기'를 눌러 리뮤팀에게 알려주세요!
-          </li>
-        </ul>
-        <button>피드백 보내기</button>
-      </div>
-      <div class="footerContents">
-        <div>Upload</div>
-        <ul class="footerTextList">
-          <li>
-            아직 리뮤에 등록되지 않은 MV가 있나요?
-          </li>
-          <li>
-            'MV 제보하기'를 눌러 리뮤팀에게 알려주세요!
-          </li>
-        </ul>
-        <button>MV 제보하기</button>
-      </div>
+  <body>
+    <div id="topHeader">
+      <span> 만나서 반가워요! 리뮤에서 당신의 MV 리뷰를 공유해주세요 :) </span>
     </div>
-    <img src="{% static 'img/REMULOGO_ORANGE.png' %}" />
-  </footer>
-  <script src="{% static 'js/SimpleStarRating.js' %}"></script>
-  {% block script %}
-  {% endblock %}
-</body>
-
+    <div id="container">
+      {% if request.path != "/accounts/login" and request.path != "/accounts/signup" %}
+      <header>
+        <a href="{% url 'home' %}">
+          <img src="{% static 'img/REMU_LOGO.png' %}" />
+        </a>
+        <div>
+          {% if request.get_full_path != "/" %}
+          <div class="searchBar">
+            <input placeholder="MV /  감독 / 아티스트를 검색하세요." />
+            <img src="{% static 'img/search_icon.png' %}" />
+          </div>
+          {% endif %} {% if '/accounts/my_page' in request.path %} {% else %}
+          <ul>
+            {% if user.is_authenticated %}
+            <li>
+              <a href="{% url 'logout' %}"> 로그아웃 </a>
+            </li>
+            <li class="orange">
+              <a href="{% url 'my_page' user.id %}"> 마이페이지 </a>
+            </li>
+            {% else %}
+            <li><a href="{% url 'login' %}"> 로그인 </a></li>
+            <li class="orange"><a href="{% url 'signup' %}"> 회원가입 </a></li>
+            {% endif %}
+          </ul>
+          {% endif %}
+        </div>
+      </header>
+      {% else %}
+      <div style="height: 100px"></div>
+      {% endif %} {% block contents %} {% endblock %}
+    </div>
+    <footer>
+      <div class="footerContainer">
+        <div class="footerContents">
+          <div>About us</div>
+          <ul class="footerTextList">
+            <li>중앙대학교 멋쟁이사자처럼 TEAM REMU</li>
+            <li>문의 : REMU@likelion.org</li>
+            <li>© 2020 리뮤 All rights reserved.</li>
+          </ul>
+        </div>
+        <div class="footerContents">
+          <div>Feedback</div>
+          <ul class="footerTextList">
+            <li>리뮤 사용 중 불편한 점이 있으신가요?</li>
+            <li>'피드백 보내기'를 눌러 리뮤팀에게 알려주세요!</li>
+          </ul>
+          <button>피드백 보내기</button>
+        </div>
+        <div class="footerContents">
+          <div>Upload</div>
+          <ul class="footerTextList">
+            <li>아직 리뮤에 등록되지 않은 MV가 있나요?</li>
+            <li>'MV 제보하기'를 눌러 리뮤팀에게 알려주세요!</li>
+          </ul>
+          <button>MV 제보하기</button>
+        </div>
+      </div>
+      <img src="{% static 'img/REMULOGO_ORANGE.png' %}" />
+    </footer>
+    <script src="{% static 'js/SimpleStarRating.js' %}"></script>
+    {% block script %} {% endblock %}
+  </body>
 </html>

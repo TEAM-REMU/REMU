@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
-from .models import Profile, Review
+from .models import Profile, Review, MusicVideo
 
 from django.core.paginator import Paginator, PageNotAnInteger
 
@@ -23,7 +23,7 @@ def login(request):
         return render(request, 'login.html')  
 
 def logout(request):
-    django_logout(request)
+    auth.logout(request)
     return redirect('home')
 
 def signup(request):
@@ -63,7 +63,7 @@ def signup(request):
         # 프로필 사진 확인
         if 'image' in request.FILES:
             profile.image = request.FILES['image']
-        
+
         profile.save()
         auth.login(request, user)
         return redirect('home')
@@ -72,17 +72,28 @@ def signup(request):
 
 def my_page(request, id):
     user = Profile.objects.get(pk=id)
+    print(user)
 
 
-    review_list = Review.objects.all()
+    video = MusicVideo.objects.get(pk=id)
+    print(video)
 
-    review_cnt = len(review_list)
 
+    review_list = Review.objects.filter(author=request.user)
+    print(review_list)
+
+    review_cnt = Review.objects.filter(author=request.user.id).count()
+    print(review_cnt)
+
+    review = Review.objects.get(author=request.user.id)
+    print(review)
+
+    
     page = request.GET.get('page', 1)
-    paginator = Paginator(review_list, 2)
+    paginator = Paginator(review_list, 25)
     reviews = paginator.get_page(page)
 
-    return render(request, 'my_page.html', {'user':user, 'reviews':reviews, 'review_cnt':review_cnt, 'review_list':review_list})
+    return render(request, 'my_page.html', {'user':user, 'reviews':reviews, 'review_cnt':review_cnt, 'review':review})
 
 
 def update(request, id):

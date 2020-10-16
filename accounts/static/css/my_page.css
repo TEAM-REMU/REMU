@@ -72,3 +72,18 @@
     padding-bottom: 30px;
     color: orange;
 }
+
+button{
+    border: none;
+    outline: none;
+    background-color:#ffcd7d;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    font-size: 18px;
+    font-weight: 200;
+    height: 55px;
+    width: 330px;
+    cursor: pointer;
+}

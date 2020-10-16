@@ -13,10 +13,10 @@
         <span>{{user.nickname}}</span>님, <span>{{review_cnt}}개</span>의 MV를 아카이빙하셨군요!
     </p>
 </div>
-
+<a href="{% url 'update' user.id %}"><button type="submit">프로필 수정하기</button></a>
 <div class = "myMvListContainer">
     <div class = "mvTicket">
-        {{ review_list }}
+        {{ review }}
         {% for i in "x"|rjust:review_cnt %}
         <div class = "ticketContainer">
             <img src = "{% static 'img/ticket/티켓.png' %}">

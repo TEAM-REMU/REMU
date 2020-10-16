@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
-from mv.models import Review
+from mv.models import Review, MusicVideo
 # Create your models here.
 
 
@@ -20,4 +20,3 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.nickname
-
