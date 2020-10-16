@@ -43,7 +43,7 @@ def mv_detail(request, id):
 @login_required(login_url='/accounts/login')
 def create_review(request, mv_id):
     try:
-        reviewCount = Review.objects.filter(author=request.user.id).count()
+        reviewCount = Review.objects.filter(video=mv_id).filter(author=request.user.id).count()
         if reviewCount > 0:
             print("이미 리뷰 작성한 유저")
             return redirect('mv_detail', mv_id)
