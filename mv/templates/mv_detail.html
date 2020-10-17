@@ -4,13 +4,17 @@
 <div id="mvDetailContainer">
   <div class="videoDetail">
     <div id="videoContainer">
-      <iframe id="video" src="//www.youtube.com/embed/{{video.video_link}}" frameborder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe id="video" src="//www.youtube.com/embed/{{video.video_link}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <h1 class="videoInformation">{{video.title}}</h1>
     <div class="videoInformation directorDetail">
+      {% if video.director %}
       <span>{{video.director.name}} 감독</span>
-      <a><button>감독 프로필 확인하기</button></a>
+      <a href="{% url 'popular_ordered_mv_of_director' video.director.id %}"><button>감독 프로필 확인하기</button></a>
+      {% elif video.production %}
+      <span>{{video.production.name}}</span>
+      <a href="{% url 'popular_ordered_mv_of_production' video.production.id %}"><button>프로필 확인하기</button></a>
+      {% endif %}
     </div>
     <div class="videoInformation">아티스트 : {{video.artist}}</div>
     <div class="videoInformation">업로드 날짜 : {{video.upload_date|date:"Y년 m월 d일"}}</div>
@@ -78,8 +82,8 @@
       <div class="review">
         <div class="reviewAuthor">
           <div class="profileBox">
-            <img src="{% static 'img/pruple.png' %}" />
-            <div class="reviewAuthorName">{{review.author.profile.name}}</div>
+            <img src="{{ review.author.profile.image.url }}" />
+            <div class="reviewAuthorName">{{review.author.profile.nickname}}</div>
           </div>
           <span class="rating" data-stars="5" data-default-rating="{{review.score}}" disabled></span>
         </div>
@@ -138,7 +142,7 @@
       // editWriter.style.display = 'flex';
       editStar.setAttribute('data-rating', scoreOriginal);
       editInput.value = reviewOriginal;
-      modal.style.display = "block";
+      modal.style.display = 'block';
     } else {
       // editWriter.style.display = 'none';
       // normalWriter.style.display = 'flex';
@@ -151,7 +155,7 @@
   doneButton.addEventListener('click', () => {});
   cancelButton.addEventListener('click', () => {
     setEditMode(false);
-    modal.style.display = "none";
+    modal.style.display = 'none';
   });
 </script>
 <!-- 무한 스크롤링 구현 -->
@@ -201,6 +205,7 @@
           }
 
           reviews.map((review) => {
+            console.log(review);
             let reviewDiv = document.createElement('div');
             reviewDiv.className = 'review';
             let reviewAuthor = document.createElement('div');
@@ -218,8 +223,7 @@
             new SimpleStarRating(ratingSpan);
             reviewAuthor.appendChild(ratingSpan);
             let imgDiv = document.createElement('img');
-            imgDiv.src =
-              'https://fdn.gsmarena.com/imgroot/news/20/04/apple-music-covid-relief/-1220x526/gsmarena_001.jpg';
+            imgDiv.src = review.author.image;
             profileBoxDiv.appendChild(imgDiv);
             let reviewAuthorNameDiv = document.createElement('div');
             reviewAuthorNameDiv.className = 'reviewAuthorName';
@@ -232,8 +236,7 @@
             let reviewDetailDiv = document.createElement('div');
             reviewDetailDiv.className = 'reviewDetail';
             let reviewDate = new Date(review.register_date);
-            reviewDetailDiv.innerText =
-              `${reviewDate.getFullYear()}년 ${reviewDate.getMonth() + 1}월 ${reviewDate.getDate()}일`;
+            reviewDetailDiv.innerText = `${reviewDate.getFullYear()}년 ${reviewDate.getMonth() + 1}월 ${reviewDate.getDate()}일`;
             reviewDiv.appendChild(reviewDetailDiv);
             document.getElementById('commentScroll').appendChild(reviewDiv);
           });
@@ -252,7 +255,7 @@
   // Get the button that opens the modal
   // var btn = document.getElementById("startEdit");
 
-  // When the user clicks on the button, open the modal 
+  // When the user clicks on the button, open the modal
   // btn.onclick = function () {}
 
   // When the user clicks on <span> (x), close the modal
@@ -263,9 +266,9 @@
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function (event) {
     if (event.target == modal) {
-      modal.style.display = "none";
+      modal.style.display = 'none';
     }
-  }
+  };
 </script>
 {% endblock %}
 <div class="review">

@@ -32,7 +32,7 @@ def mv_detail(request, id):
             return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews, 'score': score})
         else:
             try:
-                review = Review.objects.get(author=request.user.id)
+                review = Review.objects.filter(video=video.id).get(author=request.user.id)
                 return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews, 'score': score, 'review': review})
             except Review.DoesNotExist:
                 return render(request, 'mv_detail.html', {'video': video, 'reviews': reviews, 'score': score})
@@ -43,7 +43,7 @@ def mv_detail(request, id):
 @login_required(login_url='/accounts/login')
 def create_review(request, mv_id):
     try:
-        reviewCount = Review.objects.filter(author=request.user.id).count()
+        reviewCount = Review.objects.filter(video=mv_id).filter(author=request.user.id).count()
         if reviewCount > 0:
             print("이미 리뷰 작성한 유저")
             return redirect('mv_detail', mv_id)

@@ -7,20 +7,22 @@
 {% block contents %}
 <div class = "myPageContainer">
     <div class = "profileContainer">
-        <img src = {{user.image}}>
+        <img src = {{profile.image}}>
     </div>
-    <p>
-        <span>{{user.nickname}}</span>님, <span>{{review_cnt}}개</span>의 MV를 아카이빙하셨군요!
-    </p>
+    <p><span>{{profile.nickname}}</span>님, <span>{{review_cnt}}개</span>의 MV를 아카이빙하셨군요!</p>
+    <div class = "modifyContainer">
+        <a href="{% url 'update' profile.id %}"><img src = "{% static 'img/modify.png' %}"></a>
+    </div>
 </div>
-<a href="{% url 'update' user.id %}"><button type="submit">프로필 수정하기</button></a>
+
 <div class = "myMvListContainer">
     <div class = "mvTicket">
-        {{ review }}
-        {% for i in "x"|rjust:review_cnt %}
-        <div class = "ticketContainer">
-            <img src = "{% static 'img/ticket/티켓.png' %}">
-        </div>
+        {% for review in reviews %}
+        <img src="https://img.youtube.com/vi/{{review.video.video_link}}/maxresdefault.jpg" />
+        {{review.video.title}}
+        {{review.register_date|date:"Y년 m월 d일"}}
+        <a href="{% url 'mv_detail' review.video.id %}"><img src = "{% static 'img/ticket/티켓.png' %}"></a>
+
         {% endfor %}
     </div>
 

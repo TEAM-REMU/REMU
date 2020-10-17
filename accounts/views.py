@@ -71,29 +71,20 @@ def signup(request):
         return render(request, 'signup.html')
 
 def my_page(request, id):
-    user = Profile.objects.get(pk=id)
-    print(user)
-
-
-    video = MusicVideo.objects.get(pk=id)
-    print(video)
-
-
-    review_list = Review.objects.filter(author=request.user)
+    profile = Profile.objects.get(pk=id)
+    
+    review_list = Review.objects.filter(author=profile.user)
     print(review_list)
 
-    review_cnt = Review.objects.filter(author=request.user.id).count()
+    review_cnt = Review.objects.filter(author=profile.user).count()
     print(review_cnt)
-
-    review = Review.objects.get(author=request.user.id)
-    print(review)
 
     
     page = request.GET.get('page', 1)
     paginator = Paginator(review_list, 25)
     reviews = paginator.get_page(page)
 
-    return render(request, 'my_page.html', {'user':user, 'reviews':reviews, 'review_cnt':review_cnt, 'review':review})
+    return render(request, 'my_page.html', {'profile':profile, 'reviews':reviews, 'review_list':review_list, 'review_cnt':review_cnt})
 
 
 def update(request, id):
