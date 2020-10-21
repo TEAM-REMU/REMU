@@ -24,10 +24,12 @@
         </a>
         <div>
           {% if request.get_full_path != "/" %}
-          <div class="searchBar">
-            <input placeholder="MV /  감독 / 아티스트를 검색하세요." />
-            <img src="{% static 'img/search_icon.png' %}" />
-          </div>
+          <form class="searchBar" onsubmit="search(event);">
+            <input placeholder="MV /  감독 / 아티스트를 검색하세요." id="searchInput" />
+            <button type="submit">
+              <img src="{% static 'img/search_icon.png' %}" />
+            </button>
+          </form>
           {% endif %} {% if '/accounts/my_page' in request.path %} {% else %}
           <ul>
             {% if user.is_authenticated %}
@@ -79,6 +81,13 @@
       <img src="{% static 'img/REMULOGO_ORANGE.png' %}" />
     </footer>
     <script src="{% static 'js/SimpleStarRating.js' %}"></script>
+    <script>
+      let searchInput = document.getElementById('searchInput');
+      function search(e) {
+        e.preventDefault();
+        if (searchInput.value.length > 0) window.location.href = "{% url 'search_app:result' %}?search=" + searchInput.value;
+      }
+    </script>
     {% block script %} {% endblock %}
   </body>
 </html>
