@@ -34,18 +34,18 @@
         <!-- 정확도랑 최신순으로 나열된 뮤비 리스트 가져와야돼  -->
         {% if 'popular' in order %}
         <div class="condition_click">
-            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular" style="padding-right: 20px;">인기순</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target={{target}}" style="padding-right: 20px;">인기순</a>
         </div>
         <div class="condition">
-            <a href="{% url 'search_app:result' %}?search={{search}}&order=new">최신순</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order=new&target={{target}}">최신순</a>
         </div>
 
         {% elif 'new' in order %}
         <div class="condition">
-            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular" style="padding-right: 20px;">인기순</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target={{target}}" style="padding-right: 20px;">인기순</a>
         </div>
         <div class="condition_click">
-            <a href="{% url 'search_app:result' %}?search={{search}}&order=new">최신순</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order=new&target={{target}}">최신순</a>
         </div>
         {% endif %}
     </div>

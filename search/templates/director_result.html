@@ -25,24 +25,24 @@
 
 <div class="result_container">
     <div class="search_option">
-        감독 및 프로덕션({{director_count+production_count}})
+        감독 및 프로덕션({{director_production_count}})
     </div>
 
     <div class="filter">
         {% if 'popular_ordered_mv' in request.path %}
         <div class="condition_click">
-            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular" style="padding-right: 20px;">인기순</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target={{target}}" style="padding-right: 20px;">인기순</a>
         </div>
         <div class="condition">
-            <a href="{% url 'search_app:result' %}?search={{search}}&order=new">최신순</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order=new&target={{target}}">최신순</a>
         </div>
 
         {% elif 'latest_ordered_mv' in request.path %}
         <div class="condition">
-            <a href="{% url 'search_app:result' %}?search={{search}}&order=new" style="padding-right: 20px;">인기순</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order=new&target={{target}}" style="padding-right: 20px;">인기순</a>
         </div>
         <div class="condition_click">
-            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular">최신순</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target={{target}}">최신순</a>
         </div>
         {% endif %}
     </div>

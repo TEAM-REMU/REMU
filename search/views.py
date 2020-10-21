@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 def result(request):
     search = request.GET.get("search", "")
     order = request.GET.get("order", "popular")
+    target = request.GET.get("target", "mv")
 
     mv_count = 0
     # 제목 일치 뮤비
@@ -66,15 +67,15 @@ def result(request):
         my_director['count'] = count
         director_list.append(my_director)
 
-    if order is 'new':
-        director_list.sort(key=(lambda x: x['register_date']), reverse=True)
+    # if order is 'new':
+    #     director_list.sort(key=(lambda x: x['register_date']), reverse=True)
 
-    else:
-        director_list.sort(key=(lambda x: x['count']), reverse=True)
+    # else:
+    #     director_list.sort(key=(lambda x: x['count']), reverse=True)
 
     production = production_from_production_name
 
-    production_list = []
+    # production_list = []
 
     for p in production:
         musicvideos = MusicVideo.objects.filter(production=p)
@@ -83,15 +84,16 @@ def result(request):
         for mv in musicvideos:
             count += mv.reviews.count()
         mv_production['count'] = count
-        production_list.append(mv_production)
+        director_list.append(mv_production)
 
     if order is 'new':
-        production_list.sort(key=(lambda x: x['register_date']), reverse=True)
+        director_list.sort(key=(lambda x: x['register_date']), reverse=True)
     else:
-        production_list.sort(key=(lambda x: x['count']), reverse=True)
+        director_list.sort(key=(lambda x: x['count']), reverse=True)
 
 
-    director_production_together = director_list + production_list
+    # director_production_together = director_list + production_list
+    director_production_together = director_list
     paginator = Paginator(director_production_together, 9)
     page = request.GET.get('page')
     director_page = paginator.get_page(page)
@@ -101,9 +103,13 @@ def result(request):
 
     print('뮤비', mv)
     print('감독', director_list)
-    print('프로덕션', production_list)
-    print(mv_count, len(director_list), len(production_list))
+    # print('프로덕션', director_list)
+    # print(mv_count, len(director_list), len(production_list))
 
+    if target == "mv":
+        return render(request, 'mv_result.html', {'mv' : mv,'mv_count' : mv_count, 'director' : director_list, 'director_count' : len(director_list),
+    'search' : search, 'order':order,  'mv_page':mv_page, 'director_page':director_page, "target" : target})
+    else:
+        return render(request, 'director_result.html', {'mv' : mv,'mv_count' : mv_count, 'director' : director_list, 'director_production_count' : len(director_list),
+     'search' : search, 'order':order,  'mv_page':mv_page, 'director_page':director_page, "target" : target})
 
-    return render(request, 'mv_result.html', {'mv' : mv,'mv_count' : mv_count, 'director' : director_list, 'director_count' : len(director_list),
-    'production' : production_list, 'production_count' : len(production_list),'search' : search, 'order':order,  'mv_page':mv_page, 'director_page':director_page})
