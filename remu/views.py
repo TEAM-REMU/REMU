@@ -15,7 +15,3 @@ def home(request):
 
 def errorPage(request):
     return render(request, '404.html')
-
-def base(request, id):
-    profile = Profile.objects.get(pk=id)
-    return 
