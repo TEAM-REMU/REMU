@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load mathfilters %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/my_page.css' %}" />
 {% endblock %}
@@ -16,26 +17,38 @@
 </div>
 
 <div class = "myMvListContainer">
+    <div class = "bar"></div>
+    <div class = "bar1"></div>
+    <div class = "bar2"></div>
+    <div class = "bar3"></div>
+    <div class = "bar4"></div>
     <div class = "mvTicket">
         {% for review in reviews %}
-        <img src="https://img.youtube.com/vi/{{review.video.video_link}}/maxresdefault.jpg" />
-        {{review.video.title}}
-        {{review.register_date|date:"Y년 m월 d일"}}
-        <a href="{% url 'mv_detail' review.video.id %}"><img src = "{% static 'img/ticket/티켓.png' %}"></a>
-
+            <div class="ticket">
+                {% ifequal review.id|mod:4 0 %}
+                <a href="{% url 'mv_detail' review.video.id %}"><img src = "{% static 'img/ticket/티켓_보라.png' %}">
+                {% endifequal %}
+                {% ifequal review.id|mod:4 1 %}
+                <a href="{% url 'mv_detail' review.video.id %}"><img src = "{% static 'img/ticket/티켓_빨강.png' %}">
+                {% endifequal %}
+                {% ifequal review.id|mod:4 2 %}
+                <a href="{% url 'mv_detail' review.video.id %}"><img src = "{% static 'img/ticket/티켓_초록.png' %}">
+                {% endifequal %}
+                {% ifequal review.id|mod:4 3 %}
+                <a href="{% url 'mv_detail' review.video.id %}"><img src = "{% static 'img/ticket/티켓_파랑.png' %}">
+                {% endifequal %}
+                <div class="ticketDetailContainer">
+                    <span class="mvTitle">{{review.video.title|truncatechars:20}}</span><br>
+                    <span><img src="https://img.youtube.com/vi/{{review.video.video_link}}/maxresdefault.jpg" /></span>
+                    <div class="reviewDate">
+                        <span>{{review.register_date|date:"Y/m/d"}}</span>
+                    </div>
+                </div>
+                </a>
+            </div>   
         {% endfor %}
     </div>
 
-    <div class = "bar">
-    </div>
-    <div class = "bar">
-    </div>
-    <div class = "bar">
-    </div>
-    <div class = "bar">
-    </div>
-    <div class = "bar">
-    </div>
 </div>    
 
 <div class="pagination">

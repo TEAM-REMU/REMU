@@ -14,7 +14,7 @@ class Profile(models.Model):
     # 닉네임
     nickname = models.CharField(max_length=10, default="")
     # 이미지
-    image = models.ImageField(upload_to = 'images/', blank=True, null=True)
+    image = models.ImageField(upload_to = 'images/', default="images/base_img.jpeg", blank=True, null=True)
     # 모델 생성 날짜
     register_date = models.DateTimeField(default=timezone.now)
 

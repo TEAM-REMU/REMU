@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from mv.models import MusicVideo
 from director.models import Director
+from accounts.models import Profile
 from django.shortcuts import get_object_or_404
 
 
@@ -14,3 +15,7 @@ def home(request):
 
 def errorPage(request):
     return render(request, '404.html')
+
+def base(request, id):
+    profile = Profile.objects.get(pk=id)
+    return 
