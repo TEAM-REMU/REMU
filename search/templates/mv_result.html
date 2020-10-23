@@ -70,7 +70,11 @@
         <div class="mv">
             <img src="https://img.youtube.com/vi/{{mv.video_link}}/maxresdefault.jpg" />
             <div class="mv_detail">
+                {% if mv.director.name %}
                 <span class="mv_director_info">{{mv.director.name}} 감독</span>
+                {% elif mv.production.name %}
+                <span class="mv_director_info">{{mv.production.name}} 프로덕션</span>
+                {% endif %}
                 <span class="mv_sub_info">{{mv.artist}} '{{mv.title}}'</span>
                 <div>
                     <img src="{% static 'img/heart.png' %}" />
