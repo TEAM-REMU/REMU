@@ -12,7 +12,7 @@ class Production(models.Model):
     register_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.name
+        return self.name + '('+str(self.pk)+')'
 
 
 class Director(models.Model):
@@ -28,5 +28,5 @@ class Director(models.Model):
     register_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.name
+        return self.name + '('+str(self.pk)+')'
 
