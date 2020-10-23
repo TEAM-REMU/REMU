@@ -10,18 +10,22 @@
 <div class="result_announce">
     <!-- 사용자가 어떤 검색어 입력했는지 가져와야돼  -->
     <span class="search_keyword">
-        {{search}}
+        '{{search}}'
     </span>
     에 대한 검색 결과입니다.
 </div>
+
 <div class="banner">
-    <div class="mv_banner">
-        뮤직비디오
-    </div>
-    
-    <div class="director_banner">
-        감독 및 프로덕션
-    </div>    
+
+    <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target=mv">
+        <div class="banner_clicked">뮤직비디오</div>
+    </a>
+
+
+    <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target=director">
+        <div class="banner_no_clicked">감독 및 프로덕션</div>
+    </a>
+
 </div>
 
 
@@ -29,12 +33,21 @@
     <div class="search_option">
         뮤직비디오({{mv_count}})
     </div>
+    {% if mv_count == 0 %}
+    <div class="no_result">
+        <span class="search_keyword">
+            '{{search}}'
+        </span>
+        <span>에 대한 검색 결과가 없습니다.</span>
+    </div>
 
+{% else %}
     <div class="filter">
         <!-- 정확도랑 최신순으로 나열된 뮤비 리스트 가져와야돼  -->
         {% if 'popular' in order %}
         <div class="condition_click">
-            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target={{target}}" style="padding-right: 20px;">인기순</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target={{target}}"
+                style="padding-right: 20px;">인기순</a>
         </div>
         <div class="condition">
             <a href="{% url 'search_app:result' %}?search={{search}}&order=new&target={{target}}">최신순</a>
@@ -42,7 +55,8 @@
 
         {% elif 'new' in order %}
         <div class="condition">
-            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target={{target}}" style="padding-right: 20px;">인기순</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target={{target}}"
+                style="padding-right: 20px;">인기순</a>
         </div>
         <div class="condition_click">
             <a href="{% url 'search_app:result' %}?search={{search}}&order=new&target={{target}}">최신순</a>
@@ -71,11 +85,12 @@
     <div class="pagenator">
         <span class="move_previous">
             {% if mv_page.has_previous %}
-            <a href="?page=1">맨 앞으로</a>
-            <a href="?page={{mv_page.previous_page_number}}">&lt</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order={{order}}&target={{target}}&page=1">맨 앞으로</a>
+            <a
+                href="{% url 'search_app:result' %}?search={{search}}&order={{order}}&target={{target}}&page={{mv_page.previous_page_number}}">&lt</a>
             {% endif %}
         </span>
-      
+
         <span class="page_num">
             <span>&nbsp{{mv_page.number}}</span>
             <span>&nbsp/&nbsp</span>
@@ -84,24 +99,15 @@
 
         <span class="move_next">
             {% if mv_page.has_next %}
-            <a href="?page={{mv_page.next_page_number}}">&gt</a>
-            <a href="?page={{mv_page.paginator.num_pages}}">맨 뒤로</a>
+            <a
+                href="{% url 'search_app:result' %}?search={{search}}&order={{order}}&target={{target}}&page={{mv_page.next_page_number}}">&gt</a>
+            <a
+                href="{% url 'search_app:result' %}?search={{search}}&order={{order}}&target={{target}}&page={{mv_page.paginator.num_pages}}">맨
+                뒤로</a>
             {% endif %}
         </span>
     </div>
-
-
-
+    {% endif %}
 </div>
 
-{% endblock %}
-
-
-
-
-
-{% block script %}
-
-<script>
-</script>
 {% endblock %}

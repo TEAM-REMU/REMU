@@ -9,18 +9,22 @@
 
 <div class="result_announce">
     <span class="search_keyword">
-        {{search}}
+        '{{search}}'
     </span>
-    에 대한 검색 결과입니다.
+    <span>에 대한 검색 결과입니다.</span>
 </div>
+
 <div class="banner">
-    <div class="mv_banner">
-        뮤직비디오
-    </div>
-    
-    <div class="director_banner">
-        감독 및 프로덕션
-    </div>    
+
+    <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target=mv">
+        <div class="banner_no_clicked">뮤직비디오</div>
+    </a>
+
+
+    <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target=director">
+        <div class="banner_clicked">감독 및 프로덕션</div>
+    </a>
+
 </div>
 
 <div class="result_container">
@@ -28,37 +32,56 @@
         감독 및 프로덕션({{director_production_count}})
     </div>
 
+
+    {% if director_production_count == 0 %}
+    <div class="no_result">
+        <span class="search_keyword">
+            '{{search}}'
+        </span>
+        <span>에 대한 검색 결과가 없습니다.</span>
+    </div>
+
+
+    {% else %}
     <div class="filter">
-        {% if 'popular_ordered_mv' in request.path %}
+        {% if 'popular' in order %}
         <div class="condition_click">
-            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target={{target}}" style="padding-right: 20px;">인기순</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target={{target}}"
+                style="padding-right: 20px;">인기순</a>
         </div>
         <div class="condition">
             <a href="{% url 'search_app:result' %}?search={{search}}&order=new&target={{target}}">최신순</a>
         </div>
 
-        {% elif 'latest_ordered_mv' in request.path %}
+        {% elif 'new' in order %}
         <div class="condition">
-            <a href="{% url 'search_app:result' %}?search={{search}}&order=new&target={{target}}" style="padding-right: 20px;">인기순</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target={{target}}"
+                style="padding-right: 20px;">인기순</a>
         </div>
         <div class="condition_click">
-            <a href="{% url 'search_app:result' %}?search={{search}}&order=popular&target={{target}}">최신순</a>
+            <a href="{% url 'search_app:result' %}?search={{search}}&order=new&target={{target}}">최신순</a>
         </div>
         {% endif %}
     </div>
 
-    <div class="result_list">
 
-        {% for mv in mv_page%}
-        <div class="mv">
-            <img src="https://img.youtube.com/vi/{{mv.video_link}}/maxresdefault.jpg" />
-            <div class="mv_detail">
-                <span class="mv_director_info">{{mv.director.name}} 감독</span>
-                <span class="mv_sub_info">{{mv.artist}} '{{mv.title}}'</span>
+
+
+
+    <div class="result_list">
+        {% for director in director_page%}
+        <div class="director">
+            <img src="{% static 'image/director.png' %}" />
+            <div class="director_detail">
+                {% if 'director' in director.type %}
+                <span class="mv_director_info">{{director.name}} 감독</span>
+                {% elif 'production' in director.type %}
+                <span class="mv_director_info">{{director.name}} 프로덕션</span>
+                {% endif %}
                 <div>
                     <img src="{% static 'img/heart.png' %}" />
-                    <span>리뷰 {{mv.reviews.all.count}}</span>
-                    <a href="{% url 'mv_detail' mv.id %}"><button>더보기</button></a>
+                    <span>리뷰 {{director.count}}</span>
+                    <a href="{% url 'popular_ordered_mv_of_director' director.id %}"><button>프로필 보러가기</button></a>
                 </div>
             </div>
         </div>
@@ -67,26 +90,31 @@
 
     <div class="pagenator">
         <span class="move_previous">
-            {% if mv_page.has_previous %}
-            <a href="?page=1">맨 앞으로</a>
-            <a href="?page={{mv_page.previous_page_number}}">&lt</a>
+            {% if director_page.has_previous %}
+            <a href="{% url 'search_app:result' %}?search={{search}}&order={{order}}&target={{target}}&page=1">맨 앞으로</a>
+            <a
+                href="{% url 'search_app:result' %}?search={{search}}&order={{order}}&target={{target}}&page={{director_page.previous_page_number}}">&lt</a>
             {% endif %}
         </span>
-      
+
         <span class="page_num">
-            <span>&nbsp{{mv_page.number}}</span>
+            <span>&nbsp{{director_page.number}}</span>
             <span>&nbsp/&nbsp</span>
-            <span>{{mv_page.paginator.num_pages}}&nbsp</span>
+            <span>{{director_page.paginator.num_pages}}&nbsp</span>
         </span>
 
         <span class="move_next">
-            {% if mv_page.has_next %}
-            <a href="?page={{mv_page.next_page_number}}">&gt</a>
-            <a href="?page={{mv_page.paginator.num_pages}}">맨 뒤로</a>
+            {% if director_page.has_next %}
+            <a
+                href="{% url 'search_app:result' %}?search={{search}}&order={{order}}&target={{target}}&page={{director_page.next_page_number}}">&gt</a>
+            <a
+                href="{% url 'search_app:result' %}?search={{search}}&order={{order}}&target={{target}}&page={{director_page.paginator.num_pages}}">맨
+                뒤로</a>
             {% endif %}
         </span>
     </div>
-
+    {% endif %}
+</div>
 
 
 </div>
@@ -94,11 +122,3 @@
 {% endblock %}
 
 
-
-
-
-{% block script %}
-
-<script>
-</script>
-{% endblock %}
