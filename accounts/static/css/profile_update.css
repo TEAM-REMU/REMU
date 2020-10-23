@@ -40,18 +40,28 @@
     object-fit: cover;
 }
 
-.error{
-    text-align: center;
-    color:red;
-    font-size: 15px;
+.profileImageContainer{
+    margin-left: 90px;
 }
 
-input[type=text],input[type=password]{
+.profileImageContainer input[type=file]{
     border: none;
     outline: none;
-    display: block;
+    display: inline-block;
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+
+.nicknameContainer{
+    margin-left: 90px;
+}
+
+.nicknameContainer input[type=text]{
+    border: none;
+    outline: none;
+    display: inline-block;
     padding-left: 10px;
-    margin-left: auto;
+    margin-left: 75px;
     margin-right: auto;
     margin-bottom: 20px;
     height: 35px;
@@ -61,13 +71,30 @@ input[type=text],input[type=password]{
     background-color: #f9f6f4;
 }
 
-input[type=file]{
+.passwordContainer{
+    margin-left: 90px;
+}
+
+.passwordContainer input[type=password]{
     border: none;
     outline: none;
-    display: block;
-    margin-left: 210px;
+    display: inline-block;
+    padding-left: 10px;
+    margin-left: 25px;
     margin-right: auto;
+    margin-top: 15px;
     margin-bottom: 20px;
+    height: 35px;
+    width: 320px;
+    color: black;
+    cursor: text;
+    background-color: #f9f6f4;
+}
+
+.error{
+    text-align: center;
+    color:red;
+    font-size: 15px;
 }
 
 button{
@@ -77,6 +104,7 @@ button{
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 15px;
     color: white;
     font-size: 18px;
     font-weight: 200;

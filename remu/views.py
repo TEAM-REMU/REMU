@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from mv.models import MusicVideo, Review
 from director.models import Director, Production
+from accounts.models import Profile
 from django.shortcuts import get_object_or_404
 
 

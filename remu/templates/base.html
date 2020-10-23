@@ -32,10 +32,13 @@
           <ul>
             {% if user.is_authenticated %}
             <li>
-              <a href=""> 로그아웃 </a>
+              <span class="orange">{{user.profile.nickname}}</span>님 환영합니다!
+            </li>
+            <li>
+              <a href="{% url 'logout' %}"> 로그아웃 </a>
             </li>
             <li class="orange">
-              <a href="{% url 'my_page' user.id %}"> 마이페이지 </a>
+              <a href="{% url 'my_page' user.profile.id %}"> 마이페이지 </a>
             </li>
             {% else %}
             <li><a href="{% url 'login' %}"> 로그인 </a></li>

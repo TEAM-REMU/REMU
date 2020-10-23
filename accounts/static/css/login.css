@@ -33,6 +33,7 @@
     text-align: center;
     color:red;
     font-size: 15px;
+    margin-bottom:10px;
 }
 
 input[type=text], input[type=password]{
