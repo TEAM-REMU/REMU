@@ -100,14 +100,6 @@ def result(request):
     page = request.GET.get('page')
     director_page = paginator.get_page(page)
 
-    print('속한 감독 없는 프로덕션', production_from_production_name)
-    print('프로덕션에 속한 감독', director_from_production)
-
-    print('뮤비', mv)
-    print('감독', director_list)
-    # print('프로덕션', director_list)
-    # print(mv_count, len(director_list), len(production_list))
-
     if target == "mv":
         return render(request, 'mv_result.html', {'mv' : mv,'mv_count' : mv_count, 'director' : director_list, 'director_count' : len(director_list),
     'search' : search, 'order':order,  'mv_page':mv_page, 'director_page':director_page, "target" : target})

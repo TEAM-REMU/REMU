@@ -75,14 +75,20 @@
             <div class="director_detail">
                 {% if 'director' in director.type %}
                 <span class="mv_director_info">{{director.name}} 감독</span>
-                {% elif 'production' in director.type %}
-                <span class="mv_director_info">{{director.name}} 프로덕션</span>
-                {% endif %}
                 <div>
                     <img src="{% static 'img/heart.png' %}" />
                     <span>리뷰 {{director.count}}</span>
                     <a href="{% url 'popular_ordered_mv_of_director' director.id %}"><button>프로필 보러가기</button></a>
                 </div>
+                {% elif 'production' in director.type %}
+                <span class="mv_director_info">{{director.name}} 프로덕션</span>
+                <div>
+                    <img src="{% static 'img/heart.png' %}" />
+                    <span>리뷰 {{director.count}}</span>
+                    <a href="{% url 'popular_ordered_mv_of_production' director.id %}"><button>프로필 보러가기</button></a>
+                </div>
+                {% endif %}
+               
             </div>
         </div>
         {% endfor %}
