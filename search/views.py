@@ -15,14 +15,14 @@ def result(request):
     mv_count = 0
     # 제목 일치 뮤비
     mv_from_title = MusicVideo.objects.filter(
-        title__contains=search).annotate(num_reviews=Count('reviews'))
+        title__icontains=search).annotate(num_reviews=Count('reviews'))
     mv_count += MusicVideo.objects.filter(
-        title__contains=search).count()
+        title__icontains=search).count()
     # 가수 일치 뮤비
     mv_from_artist = MusicVideo.objects.filter(
-        artist__contains=search).annotate(num_reviews=Count('reviews'))
+        artist__icontains=search).annotate(num_reviews=Count('reviews'))
     mv_count += MusicVideo.objects.filter(
-        artist__contains=search).count()
+        artist__icontains=search).count()
     # 두개 합침
     mv = mv_from_artist.union(mv_from_title)
 
@@ -39,11 +39,11 @@ def result(request):
 
         # 감독 이름 일치
     director_from_director_name = Director.objects.filter(
-        name__contains=search)
+        name__icontains=search)
 
     # 프로덕션 이름 일치
     production_from_production_name = Production.objects.filter(
-        name__contains=search)
+        name__icontains=search)
     # 속한 감독 있는 프로덕션에 속한 감독들의 id
     director_id_from_production = production_from_production_name.filter(
         director__isnull=False).values_list('director')
@@ -62,6 +62,7 @@ def result(request):
         musicvideos = MusicVideo.objects.filter(director=d)
         count = 0
         my_director = d.__dict__
+        my_director['type'] = 'director'
         for mv in musicvideos:
             count += mv.reviews.count()
         my_director['count'] = count
@@ -81,6 +82,7 @@ def result(request):
         musicvideos = MusicVideo.objects.filter(production=p)
         count = 0
         mv_production = p.__dict__
+        mv_production["type"] = "production"
         for mv in musicvideos:
             count += mv.reviews.count()
         mv_production['count'] = count
