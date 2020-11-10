@@ -41,3 +41,5 @@ Ex)
 `[fix]: 회원가입 때 form 채우지 않고 전송해도 회원가입 가능하던 버그 수정`
     
 
+## 서비스 URL
+http://www.remu.site
